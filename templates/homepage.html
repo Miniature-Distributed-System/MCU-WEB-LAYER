@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
+
 <head>
 
     <!--- basic page needs
@@ -40,34 +41,44 @@
                     <!-- <img src="/static/kairos/images/logo.svg" alt="Homepage"> -->
                 </a>
             </div>
-    
-            <nav style = "font-size: 30px;" class="header-nav-wrap">
+
+            <nav style="font-size: 30px;" class="header-nav-wrap">
                 <ul class="header-main-nav">&nbsp;&nbsp;
-                    <li ><a href="" >Results</a></li>&nbsp;
-                    <li ><a href="/" >Logout</a></li>
-                    <li style="margin-left :630px; color:white; padding-top :4px;"><p>{{loginusername}}   {{loginuserid}}</p></li>
+                    <li><a href="">Results</a></li>&nbsp;
+                    <li><a href="/index">Logout</a></li>
+                    <li style="margin-left :630px; color:white; padding-top :4px;">
+                        <p>{{loginusername}} {{loginuserid}}</p>
+                    </li>
                 </ul>
-               
-        
-            </nav> 
-           
+
+
+            </nav>
+
         </div>
 
     </header> <!-- end header -->
 
 
     <section class="s-about target-section">
-        <div class  = "container-1">
-            <h1>File Upload</h1>
-            <input style = " background-color: azure; border: 2px solid black; border-radius: 5px;color: black; font-size: 9.5px; padding-left: 30px; font-family: sans-serif; font-weight: bolder; padding-top: 3px;   height: 30px; width: 112px; margin-right: 20px; line-height: 2px; display: block; font-weight:bold;text-align: left;" class = "updatebtn" type="submit" value="Update" >
-            <input style = "display: none;"type="file" id="file" name="filename">
-            <label class = "uploadbtn" for="file" >Upload file </label>
-            
+        <div class="container-1">
+            <h1 style=" padding:20px;font-size: larger;">File Upload</h1>
+            <form action="/homepage" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input
+                    style=" background-color: azure; border: 2px solid black; border-radius: 5px;color: black; font-size: 9.5px; padding-left: 30px; font-family: sans-serif; font-weight: bolder; padding-top: 3px;   height: 30px; width: 112px; margin-right: 20px; line-height: 2px; display: block; font-weight:bold;text-align: left;"
+                    class="updatebtn" type="submit" value="Update">
+                <input style="display: none;" type="file" id="file" name="file">
+                <label class="uploadbtn" for="file">Upload file </label>
+                <p style=" float: right; margin-right: 15px;color:black; font-weight: 500;"> {% for msg in messages %}
+                    {{msg}}
+                    {% endfor %}</p>
+            </form>
+
         </div>
-       
+
     </section>
 
-   
+
 
 
     <!-- Java Script

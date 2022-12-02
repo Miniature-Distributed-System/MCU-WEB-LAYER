@@ -37,13 +37,11 @@
 			  <div class="row d-flex justify-content-center align-items-center h-100">
 				<div class="col-12 col-md-8 col-lg-6 col-xl-5">
 				  <div style = " background: linear-gradient( to right bottom, rgba(91,79,150,0.6), rgba(255,255,255,0.3)); border-radius: 15px;margin-top: 50px; margin-bottom: 50px;height:auto">
-					{% with messages = get_flashed_messages() %}  
-          			{% if messages %}  
-               			{% for message in messages %}  <br>
+
+               		{% for message in messages %}  <br>
                     <p style = "color: red; text-align: center;">{{ message }}</p>  
-               			{% endfor %}  
-          			{% endif %}  
-          			{% endwith %} 
+               		{% endfor %}  
+          			
 					<div class="card-body p-5 text-center">
 		  
 					  <div class="mb-md-5 mt-md-4 pb-5">
@@ -51,6 +49,7 @@
 						<h2 class="fw-bold mb-2 text-uppercase">Login</h2>
 						<p class="text-white-50 mb-5">Please enter login credentials!!</p>
 						<form action="/login" method = "post">
+							{% csrf_token %}
 						<div class="form-outline form-white mb-4">
 							
 						  <input type="text" placeholder = "Userid" name = "loginuserid" id="typeEmailX" class="form-control form-control-lg" />
