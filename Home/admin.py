@@ -1,3 +1,5 @@
 from django.contrib import admin
+from Home.models import usersinfo, csv
 
-# Register your models here.
+admin.site.register(usersinfo)
+admin.site.register(csv)
