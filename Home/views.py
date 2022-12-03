@@ -1,7 +1,9 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from Home.models import usersinfo
+from Home.models import usersinfo, csv
 import random
+from csv import reader
+import io
 # Create your views here.
 
 
@@ -82,7 +84,25 @@ def homepage(request):
             
             if not csv_file.name.endswith('.csv'):
                 messages.error(request,"*Please Upload a CSV File")
-                
+
+
+            else:
+                dataset =  csv_file.read().decode('UTF-8')  #reading the cssv file
+                istring = io.StringIO(dataset)              #setting a file object
+                next(istring)
+
+                for column in reader(istring,delimiter=',',quotechar = '|'): #create the file contents and getting the data as columns
+                        csv.objects.update_or_create( 
+                            intial_velocity = column[0],
+                            final_velocity = column[1],
+                            time_taken = column[2]
+                        )
+
+                        
+                messages.success(request,"File Uploaded.")        #message for csv file upload
+
+
+         
 
 
         except:

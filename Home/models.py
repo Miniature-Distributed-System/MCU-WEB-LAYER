@@ -12,9 +12,9 @@ class usersinfo(models.Model):
 
 
 class csv(models.Model):
-    Intvelocity = models.CharField(max_length=3)
-    finvelocity = models.CharField(max_length=3)
-    ETime = models.CharField(max_length=5)
+    intial_velocity = models.CharField(max_length=3)
+    final_velocity = models.CharField(max_length=3)
+    time_taken = models.CharField(max_length=5)
 
     class meta:
         db_table = "mcu"
