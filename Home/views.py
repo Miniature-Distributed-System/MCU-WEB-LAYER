@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from Home.models import usersinfo
+import random
 # Create your views here.
 
 
@@ -23,12 +24,12 @@ def login(request):
         
         try:
             if loginuserid in str(usersinfo.objects.filter(userid = loginuserid).values_list("userid")[0][0]) and loginusername in usersinfo.objects.filter(username = loginusername).values_list("username")[0][0] and loginpassword in usersinfo.objects.filter(password = loginpassword).values_list("password")[0][0]:
-                context = {
-                    "loginuserid" : loginuserid,
-                    "loginusername" : loginusername,
+                # context = {
+                #     "loginuserid" : loginuserid,
+                #     "loginusername" : loginusername,
 
-                }
-                return render(request,'homepage.html', context)
+                # }
+                return render(request,'homepage.html')
 
             else:
                 messages.error(request,"Login credentials are incorrect")
@@ -40,12 +41,39 @@ def login(request):
        
     return render(request,'login.html')
 
+def signup(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')    
+
+        if username == "" and password == "":
+            messages.error(request,"Please fill the details")
+            return render(request,"signup.html")
+
+        try:
+            user1 = usersinfo.objects.filter( username = username ).values_list("username")[0][0]
+            if  username in user1:
+                messages.error(request,"User already exist")
+                return render(request,"signup.html")
+        
+              
+
+        except:
+            # uid = mcu(userid = randint(12405,20000), username = username, password = password)
+            id = random.randint(12405,20000)
+            usersinfo.objects.create(userid = id, 
+                                     username = username, 
+                                     password = password
+            )
+            context = { "userid" : id}
+            # db.session.add(uid)
+            # db.session.commit()
+            return render(request,"ak.html", context)
+
+    return  render(request,"signup.html")    
+
 
 def homepage(request):
-
-
-    if request.method == "GET":
-        render(request,"csvupload.html")
 
     
     if request.method == "POST": 
@@ -54,7 +82,7 @@ def homepage(request):
             
             if not csv_file.name.endswith('.csv'):
                 messages.error(request,"*Please Upload a CSV File")
-                # return render(request,'homepage.html')
+                
 
 
         except:

@@ -39,7 +39,9 @@
 				  <div style = " background: linear-gradient( to right bottom, rgba(91,79,150,0.6), rgba(255,255,255,0.3)); border-radius: 15px;margin-top: 50px; margin-bottom: 50px;height:auto">
 
                		{% for message in messages %}  <br>
-                    <p style = "color: red; text-align: center;">{{ message }}</p>  
+					   <div class="alert alert-danger" style = "left: 80px;width: 300px; height: 50px; text-align: center;" role="alert">
+						<p style = "color: black; text-align: center;">{{ message }}</p>
+					  </div> 
                		{% endfor %}  
           			
 					<div class="card-body p-5 text-center">
