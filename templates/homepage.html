@@ -61,15 +61,13 @@
 
     <section class="s-about target-section">
         <div class="container-1">
-            <h1 style=" padding:20px;font-size: larger;">File Upload</h1>
+            
             <form action="/homepage" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <input
-                    style=" background-color: azure; border: 2px solid black; border-radius: 5px;color: black; font-size: 9.5px; padding-left: 30px; font-family: sans-serif; font-weight: bolder; padding-top: 3px;   height: 30px; width: 112px; margin-right: 20px; line-height: 2px; display: block; font-weight:bold;text-align: left;"
-                    class="updatebtn" type="submit" value="Update">
-                <input style="display: none;" type="file" id="file" name="file">
-                <label class="uploadbtn" for="file">Upload file </label>
-                <p style=" float: right; margin-right: 15px;color:black; font-weight: 500;"> {% for msg in messages %}
+                <h1  style = "font-size: xx-large; margin-left: 15px; padding-top: 30px;" >Select file :</h1>
+                <input  style = "font-size: larger; margin-left: 20px; margin-top: 10px" type="file" id="file" name="file"><br><br><br>
+                <input style = " margin-left: 20px;" type="submit" value="update"><br><br>
+                <p style="color:black; font-weight: 500; margin-left: 20px;"> {% for msg in messages %}
                     {{msg}}
                     {% endfor %}</p>
             </form>

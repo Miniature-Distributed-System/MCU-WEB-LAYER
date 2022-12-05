@@ -1,10 +1,12 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
+from django.db import connection
 from Home.models import usersinfo, csv
 import random
 import pandas as pd 
 from csv import reader
 import io
+import os
 # Create your views here.
 
 
@@ -94,20 +96,20 @@ def homepage(request):
 
                 headers = df.axes[1]        #reading the headers of the csv and storing into a list
 
+                messages.success(request,headers.values)
+                # dataset =  csv_file.read().decode('UTF-8')  #reading the cssv file
+                # istring = io.StringIO(dataset)              #setting a file object
+                # next(istring)
+
+                #create the file contents and getting the data as columns
                 
-                dataset =  csv_file.read().decode('UTF-8')  #reading the cssv file
-                istring = io.StringIO(dataset)              #setting a file object
-                next(istring)
-
-                for column in reader(istring,delimiter=',',quotechar = '|'): #create the file contents and getting the data as columns
-                        csv.objects.update_or_create( 
-                            intial_velocity = column[0],
-                            final_velocity = column[1],
-                            time_taken = column[2]
-                        )
-
+                # """ CHECKING OF HEADERS WITH THE ALGORITHM REQUIREMENTS"""
+                
+               
+                with open(os.path.join(r'D:\Miniature Compute Unit Web Layer\MCU\CSV Samples',csv_file.name),'wb') as f:
+                    f.write(csv_file)
                         
-                messages.success(request,"File Uploaded.")        #message for csv file upload
+                messages.success(request,"File Uploaded.")        #message after csv file upload
         
         except:
             messages.error(request,"*No file choosen")
