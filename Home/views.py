@@ -5,6 +5,8 @@ import pandas as pd
 from Home.models import usersinfo
 import random
 from csv import reader
+from csv import writer
+import shutil
 import io
 import os
 # Create your views here.
@@ -104,15 +106,29 @@ def homepage(request):
                 #create the file contents and getting the data as columns
                 
                 # """ CHECKING OF HEADERS WITH THE ALGORITHM REQUIREMENTS"""
+            
+                fp = open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples' , csv_file), 'x')
+                fp1 = open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples\CSV UPLOADS', csv_file),'x')
+                fp.close()
+                fp1.close()
+
+                shutil.copy(csv_file, os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples' , csv_file))
+                # file saved
+
+                text = '\\n'
+                with open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples' , csv_file), 'r') as read_obj, \
+                        open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples\CSV UPLOADS', csv_file), 'w', newline='') as write_obj:
+                   
+                    csv_reader = reader(read_obj)
                 
+                    csv_writer = writer(write_obj)
+                    
+                    #appending
+                    for row in csv_reader:
+                        row.append(text)
+                        csv_writer.writerow(row)        
 
-                df = pd.read_csv(csv_file)
-
-                print(str(df))
-               
-                with open(os.path.join(r'D:\Miniature Compute Unit Web Layer\MCU\CSV Samples',csv_file.name),'wb') as f:
-                    f.write(str(df))
-                        
+                os.remove(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples' , csv_file))
                 messages.success(request,"File Uploaded.")        #message after csv file upload
         
         except Exception as e:
