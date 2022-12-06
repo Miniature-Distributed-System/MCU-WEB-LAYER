@@ -1,9 +1,9 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.db import connection
-from Home.models import usersinfo, csv
+import pandas as pd
+from Home.models import usersinfo
 import random
-import pandas as pd 
 from csv import reader
 import io
 import os
@@ -105,14 +105,18 @@ def homepage(request):
                 
                 # """ CHECKING OF HEADERS WITH THE ALGORITHM REQUIREMENTS"""
                 
+
+                df = pd.read_csv(csv_file)
+
+                print(str(df))
                
                 with open(os.path.join(r'D:\Miniature Compute Unit Web Layer\MCU\CSV Samples',csv_file.name),'wb') as f:
-                    f.write(csv_file)
+                    f.write(str(df))
                         
                 messages.success(request,"File Uploaded.")        #message after csv file upload
         
-        except:
-            messages.error(request,"*No file choosen")
+        except Exception as e:
+            messages.error(request,f"ERROR : {e}")
 
 
 
