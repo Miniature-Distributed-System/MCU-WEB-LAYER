@@ -7,7 +7,7 @@ import random
 from csv import reader
 from csv import writer
 import shutil
-import io
+import codecs
 import os
 # Create your views here.
 
@@ -73,8 +73,6 @@ def signup(request):
                                      password = password
             )
             context = { "userid" : id}
-            # db.session.add(uid)
-            # db.session.commit()
             return render(request,"ak.html", context)
 
     return  render(request,"signup.html")    
@@ -98,7 +96,7 @@ def homepage(request):
 
                 headers = df.axes[1]        #reading the headers of the csv and storing into a list
 
-                messages.success(request,headers.values)
+                # messages.success(request,headers.values)
                 # dataset =  csv_file.read().decode('UTF-8')  #reading the cssv file
                 # istring = io.StringIO(dataset)              #setting a file object
                 # next(istring)
@@ -107,19 +105,19 @@ def homepage(request):
                 
                 # """ CHECKING OF HEADERS WITH THE ALGORITHM REQUIREMENTS"""
             
-                fp = open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples' , csv_file), 'x')
-                fp1 = open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples\CSV UPLOADS', csv_file),'x')
+                fp = open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples' , str(csv_file)), 'x')
+                fp1 = open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples\CSV UPLOADS', str(csv_file)),'x')
                 fp.close()
                 fp1.close()
 
-                shutil.copy(csv_file, os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples' , csv_file))
+                # shutil.copy(str(csv_file), os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples' , str(csv_file)))
                 # file saved
 
                 text = '\\n'
-                with open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples' , csv_file), 'r') as read_obj, \
-                        open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples\CSV UPLOADS', csv_file), 'w', newline='') as write_obj:
+                with csv_file.open('rb') as read_obj, \
+                        open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples\CSV UPLOADS', str(csv_file)), 'w', newline='') as write_obj:
                    
-                    csv_reader = reader(read_obj)
+                    csv_reader = reader(codecs.iterdecode(read_obj, 'utf-8'))
                 
                     csv_writer = writer(write_obj)
                     
@@ -128,7 +126,8 @@ def homepage(request):
                         row.append(text)
                         csv_writer.writerow(row)        
 
-                os.remove(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples' , csv_file))
+                
+                os.remove(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples' , str(csv_file)))
                 messages.success(request,"File Uploaded.")        #message after csv file upload
         
         except Exception as e:

@@ -1,0 +1,1 @@
+shutil.copy(str(csv_file), os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples' , str(csv_file)))
