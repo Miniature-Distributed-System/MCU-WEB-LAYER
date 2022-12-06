@@ -11,10 +11,11 @@ class usersinfo(models.Model):
         db_table = "mcu"
 
 
-class csv(models.Model):
-    intial_velocity = models.CharField(max_length=3)
-    final_velocity = models.CharField(max_length=3)
-    time_taken = models.CharField(max_length=5)
+class filelog(models.Model):
+    userid = models.CharField(max_length=10)
+    file_name = models.CharField(max_length=20)
+    status = models.CharField(max_length=10)
 
     class meta:
         db_table = "mcu"
+

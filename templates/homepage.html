@@ -44,11 +44,12 @@
 
             <nav style="font-size: 30px;" class="header-nav-wrap">
                 <ul class="header-main-nav">&nbsp;&nbsp;
-                    <li><a href="">Results</a></li>&nbsp;
-                    <li><a href="/index">Logout</a></li>
-                    <!-- <li style="margin-left :630px; color:white; padding-top :4px;">
-                        <p>{{loginusername}} {{loginuserid}}</p>
-                    </li> -->
+                    <li><a href=''>Results</a></li>&nbsp;
+                    <li><a href='/'>Logout</a></li>
+                    
+                    <li style="margin-left :630px; color:white; padding-top :4px;">
+                        <p>{{loginuserid}}</p>
+                    </li>
                 </ul>
 
 
@@ -61,10 +62,12 @@
 
     <section class="s-about target-section">
         <div class="container-1">
+           
             
             <form action="/homepage" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <h1  style = "font-size: xx-large; margin-left: 15px; padding-top: 30px;" >Select file :</h1>
+                <input style = "display: none;" name = "userid" value = "{{loginuserid}}">
                 <input  style = "font-size: larger; margin-left: 20px; margin-top: 10px" type="file" id="file" name="file"><br><br><br>
                 <input style = " margin-left: 20px;" type="submit" value="Update the feed"><br><br><br>
                 <p style="color:black; font-weight: 500; margin-left: 20px;"> {% for msg in messages %}
