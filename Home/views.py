@@ -5,7 +5,6 @@ from Home.models import usersinfo, filelog
 import random
 from csv import reader
 from csv import writer
-import shutil
 import codecs
 import os
 # Create your views here.
@@ -33,7 +32,7 @@ def login(request):
                 context = {
                     "loginuserid" : loginuserid
                 }
-                return render(request,'homepage.html',context)
+                return render(request,'home.html',context)
 
             else:
                 messages.error(request,"Login credentials are incorrect")
@@ -79,16 +78,15 @@ def homepage(request):
 
     
     if request.method == "POST": 
+        userid = request.POST.get('userid')
         try:       
             csv_file = request.FILES['file']  
-            userid = request.POST.get('userid')
+            
             
             if not csv_file.name.endswith('.csv'):
                 messages.error(request,"*Please Upload a CSV File")
 
             
-                
-
             else:
                 df = pd.read_csv(csv_file)
 
@@ -129,17 +127,17 @@ def homepage(request):
                 os.remove(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples' , str(csv_file)))
                 messages.success(request,"File Uploaded.")  #message after csv file upload
                 context  = { 'loginuserid' : userid}
-                return render(request,'homepage.html',context)
+                return render(request,'home.html',context)
                       
         
         except Exception as e:
-            messages.error(request,f"ERROR : {e}")
+            messages.error(request,f"ERROR : File not uploaded")
             context  = { 'loginuserid' : userid}
-            return render(request,'homepage.html',context)
+            return render(request,'home.html',context)
 
 
 
 
     
-    return render(request,'homepage.html')
+    return render(request,'home.html')
 
