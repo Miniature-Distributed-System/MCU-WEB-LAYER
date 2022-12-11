@@ -144,8 +144,8 @@ def homepage(request):
                 return render(request,'home.html',context)
                       
         
-        except Exception as e:
-            messages.error(request,f"ERROR : File not uploaded {e}")
+        except Exception :
+            messages.error(request,f"ERROR : File not uploaded")
             context  = { 'loginuserid' : userid,
                               'filelogd' : filelogd}
             return render(request,'home.html',context)
