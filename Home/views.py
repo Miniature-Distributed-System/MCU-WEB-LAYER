@@ -1,8 +1,11 @@
 from django.shortcuts import render,redirect
+from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.urls import reverse
 import pandas as pd
 from Home.models import usersinfo, filelog
 import random
+from django.template import loader
 from csv import reader
 from csv import writer
 import codecs
@@ -29,8 +32,10 @@ def login(request):
         
         try:
             if loginuserid in str(usersinfo.objects.filter(userid = loginuserid).values_list("userid")[0][0]) and loginusername in usersinfo.objects.filter(username = loginusername).values_list("username")[0][0] and loginpassword in usersinfo.objects.filter(password = loginpassword).values_list("password")[0][0]:
+                filelogd = filelog.objects.filter(userid = loginuserid).values()
                 context = {
-                    "loginuserid" : loginuserid
+                    "loginuserid" : loginuserid,
+                    "filelogd"    : filelogd
                 }
                 return render(request,'home.html',context)
 
@@ -75,16 +80,24 @@ def signup(request):
 
 
 def homepage(request):
+    
+    # template = loader.get_template('index.html')
+    
 
     
     if request.method == "POST": 
         userid = request.POST.get('userid')
+        filelogd = filelog.objects.filter(userid = userid).values()
         try:       
             csv_file = request.FILES['file']  
             
             
             if not csv_file.name.endswith('.csv'):
                 messages.error(request,"*Please Upload a CSV File")
+                context  = { 'loginuserid' : userid,
+                              'filelogd' : filelogd}
+                return render(request,'home.html',context)
+
 
             
             else:
@@ -126,13 +139,15 @@ def homepage(request):
                 
                 os.remove(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples' , str(csv_file)))
                 messages.success(request,"File Uploaded.")  #message after csv file upload
-                context  = { 'loginuserid' : userid}
+                context  = { 'loginuserid' : userid,
+                              'filelogd' : filelogd}
                 return render(request,'home.html',context)
                       
         
         except Exception as e:
-            messages.error(request,f"ERROR : File not uploaded")
-            context  = { 'loginuserid' : userid}
+            messages.error(request,f"ERROR : File not uploaded {e}")
+            context  = { 'loginuserid' : userid,
+                              'filelogd' : filelogd}
             return render(request,'home.html',context)
 
 
@@ -141,3 +156,14 @@ def homepage(request):
     
     return render(request,'home.html')
 
+
+
+def delete(request,id):
+    userid = filelog.objects.filter(id = id).values_list('userid')[0][0]
+    context = {
+            "loginuserid" : userid
+    }
+    filelog.objects.get(id=id).delete()
+    
+    return HttpResponseRedirect(reverse('homepage',context))
+    
