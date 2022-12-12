@@ -157,7 +157,7 @@ def delete(request,id,userid):
     try:
         filename = filelog.objects.filter(id = id).values_list('file_name')[0][0]
         filelog.objects.get(id=id).delete()
-        os.remove(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS' , str(filename)))
+        # os.remove(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS' , str(filename)))
         messages.success(request,"File Deleted Successfully")
         context  = { 'loginuserid' : userid,
                               'filelogd' : filelogd}
