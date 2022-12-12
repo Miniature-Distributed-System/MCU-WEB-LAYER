@@ -105,7 +105,7 @@ def homepage(request):
 
                 headers = df.axes[1]        #reading the headers of the csv and storing into a list
 
-                
+                print(headers)
                 # """ CHECKING OF HEADERS WITH THE ALGORITHM REQUIREMENTS"""
             
                 fp = open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples' , str(csv_file)), 'x')
@@ -129,7 +129,8 @@ def homepage(request):
                         row.append(text)
                         csv_writer.writerow(row)        
 
-                filelog.objects.update_or_create(userid = userid, file_name = csv_file, status = "Processing")
+                x = len(filelog.objects.all().values_list('file_name'))
+                filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing")
                 
                 os.remove(os.path.join("D:\Miniature Compute Unit Web Layer\MCU\CSV Samples" , str(csv_file)))
                 messages.success(request,"File Uploaded.")  #message after csv file upload
@@ -159,6 +160,10 @@ def delete(request,id,userid):
         filename = filelog.objects.filter(id = id).values_list('file_name')[0][0]
         filelog.objects.get(id=id).delete()
         os.remove(os.path.join("D:\Miniature Compute Unit Web Layer\MCU\CSV Samples\CSV UPLOADS", filename))
+        try:
+            os.remove(os.path.join("D:\Miniature Compute Unit Web Layer\MCU\CSV Samples\CSV UPLOADS", filename))
+        except:
+            None    
         messages.success(request,"File Deleted Successfully")
         context  = { 'loginuserid' : userid,
                                 'filelogd' : filelogd}
