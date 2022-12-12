@@ -27,7 +27,7 @@
 <body>
   <nav class="navbar navbar-dark bg-dark">
     <a style="font-family: serif; font-size: x-large;" class="navbar-brand" href="#">Miniature Compute
-      Unit&nbsp;&nbsp;&nbsp;&nbsp;{{loginuserid}}</a>
+      Unit&nbsp;&nbsp;&nbsp;&nbsp;{{loginuserid}}{{request.session.cuserid}}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -81,7 +81,7 @@
             <th scope="row">{{x.id}}</th>
             <td>{{ x.file_name }}</td>
             <td>{{ x.status }}</td>
-            <td><a href="/delete/{{ x.id }}">Delete</a></td>
+            <td><a href="/delete/{{ x.id }},{{x.userid}}">Delete</a></td>
             </td>
           </tr>
           {% endfor %}

@@ -81,7 +81,7 @@ def signup(request):
 
 def homepage(request):
     
-    # template = loader.get_template('index.html')
+    
     
 
     
@@ -105,12 +105,6 @@ def homepage(request):
 
                 headers = df.axes[1]        #reading the headers of the csv and storing into a list
 
-                # messages.success(request,headers.values)
-                # dataset =  csv_file.read().decode('UTF-8')  #reading the cssv file
-                # istring = io.StringIO(dataset)              #setting a file object
-                # next(istring)
-
-                #create the file contents and getting the data as columns
                 
                 # """ CHECKING OF HEADERS WITH THE ALGORITHM REQUIREMENTS"""
             
@@ -144,8 +138,8 @@ def homepage(request):
                 return render(request,'home.html',context)
                       
         
-        except Exception :
-            messages.error(request,f"ERROR : File not uploaded")
+        except Exception as e:
+            messages.error(request,f"ERROR : File not uploaded {e}")
             context  = { 'loginuserid' : userid,
                               'filelogd' : filelogd}
             return render(request,'home.html',context)
@@ -158,12 +152,22 @@ def homepage(request):
 
 
 
-def delete(request,id):
-    userid = filelog.objects.filter(id = id).values_list('userid')[0][0]
-    context = {
-            "loginuserid" : userid
-    }
-    filelog.objects.get(id=id).delete()
-    
-    return HttpResponseRedirect(reverse('homepage',context))
+def delete(request,id,userid):
+    filelogd = filelog.objects.filter(userid = userid).values()
+    try:
+        filename = filelog.objects.filter(id = id).values_list('file_name')[0][0]
+        filelog.objects.get(id=id).delete()
+        os.remove(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS' , str(filename)))
+        messages.success(request,"File Deleted Successfully")
+        context  = { 'loginuserid' : userid,
+                              'filelogd' : filelogd}
+        return render(request,'home.html',context)
+
+    except:
+        messages.success(request,"Error")
+        context  = { 'loginuserid' : userid,
+                              'filelogd' : filelogd}
+        return render(request,'home.html',context)
+
+
     

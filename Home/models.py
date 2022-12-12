@@ -12,7 +12,7 @@ class usersinfo(models.Model):
 
 
 class filelog(models.Model):
-    userid = models.CharField(max_length=10)
+    userid = models.IntegerField(null=True)
     file_name = models.CharField(max_length=20)
     status = models.CharField(max_length=10)
 
