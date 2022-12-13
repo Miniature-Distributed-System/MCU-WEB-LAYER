@@ -1,0 +1,44 @@
+body{
+    background-color: #5b4f96;
+}
+
+.login-container{
+    background: linear-gradient( to right bottom, rgba(91,79,150,0.6), rgba(255,255,255,0.3)); 
+    border-radius: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    height: auto;
+    padding-top: 50px;
+    padding-bottom: 30px;
+}
+
+.login-container h1{
+    text-align: center;
+    font-family: serif;
+    font-weight: 700;
+    font-size: 50px;
+}
+
+.login-container p{
+        font-family: sans-serif;
+        text-align: center;
+        margin-top: 10px;
+        font-size: large;
+        font-weight: 600;
+}
+
+.subtn {
+    margin-left: 38%;
+    margin-right: 38%;
+    height: 50px;
+    width: 120px;
+    font-size: x-large;
+    font-family: serif;
+    font-weight: 700;
+    border-radius: 5px;
+    background-color: azure;
+    margin-bottom: 10px;
+}
