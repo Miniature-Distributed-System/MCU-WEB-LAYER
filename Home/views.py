@@ -88,6 +88,7 @@ def homepage(request):
     if request.method == "POST": 
         userid = request.POST.get('userid')
         filelogd = filelog.objects.filter(userid = userid).values()
+        algorithm = request.POST.get('algo')
         try:       
             csv_file = request.FILES['file']  
             

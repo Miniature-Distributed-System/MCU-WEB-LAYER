@@ -12,7 +12,32 @@
     <title>MCU | RESULT</title>
   </head>
   <body>
-    <table class="table">
+
+    <nav style = "position: fixed; overflow: hidden; top: 0; width: 100%; background-color: black;" class="navbar navbar-dark bg-dark">
+      <a style="font-family: serif; font-size: x-large;" class="navbar-brand" href="#">Miniature Compute
+        Unit&nbsp;&nbsp;&nbsp;&nbsp;{{loginuserid}}</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div style="color: white;" class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/">Log Out</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    {% block body %}
+
+    {% endblock body%}
+    <!-- <table class="table">
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
@@ -29,7 +54,7 @@
       <td>{{col3}}</td>
     </tr>
   </tbody>
-</table>    
+</table>     -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

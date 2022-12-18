@@ -29,21 +29,7 @@ body{
 
 }
 
-.uploadcont label{
 
-    background-color: azure;
-    text-align: center;
-    border-radius: 5px;
-    height: 30px;
-    width: 100px;
-    font-size: large;
-    font-weight: 550;
-    font-family: serif;
-    border-color: black;
-    border-style:solid;
-    margin-left: 790px;
-
-}
 
 .uploadcont label:hover{
     background-color: bisque;
@@ -65,6 +51,26 @@ body{
     font-weight: 600;
     margin-left: 275px;
 }
+
+
+.subbtn:hover{
+    background-color: bisque;
+}
+
+.uploadcont label{
+
+    background-color: azure;
+    text-align: center;
+    border-radius: 5px;
+    height: 30px;
+    width: 100px;
+    font-size: large;
+    font-weight: 550;
+    font-family: serif;
+    border-color: black;
+    border-style:solid;
+
+}
 .subbtn{
     background-color: azure;
     text-align: center;
@@ -76,14 +82,8 @@ body{
     font-family: serif;
     border-color: black;
     border-style: solid;
-
     
 }
-
-.subbtn:hover{
-    background-color: bisque;
-}
-
 
 .filerecord{
     background-color: cadetblue;
