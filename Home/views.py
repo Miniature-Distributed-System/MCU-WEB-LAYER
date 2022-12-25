@@ -101,8 +101,6 @@ def homepage(request):
 
             if str(csv_file) in filelog.objects.filter(file_name = str(csv_file)).values_list('file_name')[0][0]:   #checks if file exist 
                 messages.error(request,"File Already Exist.")
-
-
             
             else:
                 df = pd.read_csv(csv_file)
