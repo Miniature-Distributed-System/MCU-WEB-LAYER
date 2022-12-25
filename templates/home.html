@@ -79,10 +79,10 @@
       </form>
     </div>
     <div class="filerecord">
-      <table style="width: 950px; margin-left: auto; margin-right: auto; text-align: center;" class="table table-dark">
+      <table style="width: 950px; margin-left: auto; margin-right: auto; text-align: center; " class="table table-dark">
         <thead>
           <tr>
-            <th scope="col">Sl.no</th>
+            <th scope="col">File ID</th>
             <th scope="col">Filename</th>
             <th scope="col">Status</th>
             <th scope="col">Controls</th>
@@ -94,7 +94,8 @@
             <th scope="row">{{x.id}}</th>
             <td>{{ x.file_name }}</td>
             <td>{{ x.status }}</td>
-            <td><a href="/delete/{{ x.id }},{{x.userid}}">Delete</a></td>
+            <td><a href="/delete/{{ x.id }},{{x.userid}}">Delete</a> | 
+                <a href="#">Result</a></td>
             </td>
           </tr>
           {% endfor %}

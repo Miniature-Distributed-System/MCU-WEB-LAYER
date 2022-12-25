@@ -81,6 +81,45 @@ def signup(request):
 
 def homepage(request):
     
+    def store(csv_file,userid,filelogd):
+                    df =  pd.read_csv(csv_file)
+                    headers = df.axes[1]        #reading the headers of the csv and storing into a list
+                    print(headers)
+                    # """ CHECKING OF HEADERS WITH THE ALGORITHM REQUIREMENTS"""
+                    if len(headers) == 5:
+
+                            fp = open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples' , str(csv_file)), 'x')
+                            fp1 = open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples\CSV UPLOADS', str(csv_file)),'x')
+                            fp.close()
+                            fp1.close()
+                    
+                            text = '\\n'
+                            with csv_file.open('rb') as read_obj, \
+                                    open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples\CSV UPLOADS', str(csv_file)), 'w', newline='') as write_obj:
+                            
+                                csv_reader = reader(codecs.iterdecode(read_obj, 'utf-8'))
+                            
+                                csv_writer = writer(write_obj)
+                                
+                                #appending
+                                for row in csv_reader:
+                                    row.append(text)
+                                    csv_writer.writerow(row)        
+
+                            x = len(filelog.objects.all().values_list('file_name'))
+                            filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", algorithm = algorithm)
+                            
+                            os.remove(os.path.join("D:\Miniature Compute Unit Web Layer\MCU\CSV Samples" , str(csv_file)))
+                            messages.success(request,"File Uploaded.")  #message after csv file upload
+                            context  = { 'loginuserid' : userid,
+                                         'filelogd' : filelogd}
+                            return render(request,'home.html',context)
+
+                    else:
+                            messages.error(request,"Can't Process The File.")
+                            context  = { 'loginuserid' : userid,
+                                         'filelogd' : filelogd}
+                            return render(request,'home.html',context)
     
     
 
@@ -98,57 +137,25 @@ def homepage(request):
                 context  = { 'loginuserid' : userid,
                               'filelogd' : filelogd}
                 return render(request,'home.html',context)
-
-            if str(csv_file) in filelog.objects.filter(file_name = str(csv_file)).values_list('file_name')[0][0]:   #checks if file exist 
-                messages.error(request,"File Already Exist.")
             
-            else:
-                df = pd.read_csv(csv_file)
-
-                headers = df.axes[1]        #reading the headers of the csv and storing into a list
-
-                print(headers)
-                # """ CHECKING OF HEADERS WITH THE ALGORITHM REQUIREMENTS"""
-                if len(headers) == 5:
-
-                    fp = open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples' , str(csv_file)), 'x')
-                    fp1 = open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples\CSV UPLOADS', str(csv_file)),'x')
-                    fp.close()
-                    fp1.close()
-               
-                    text = '\\n'
-                    with csv_file.open('rb') as read_obj, \
-                            open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples\CSV UPLOADS', str(csv_file)), 'w', newline='') as write_obj:
-                    
-                        csv_reader = reader(codecs.iterdecode(read_obj, 'utf-8'))
-                    
-                        csv_writer = writer(write_obj)
-                        
-                        #appending
-                        for row in csv_reader:
-                            row.append(text)
-                            csv_writer.writerow(row)        
-
-                    x = len(filelog.objects.all().values_list('file_name'))
-                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", algorithm = algorithm)
-                    
-                    os.remove(os.path.join("D:\Miniature Compute Unit Web Layer\MCU\CSV Samples" , str(csv_file)))
-                    messages.success(request,"File Uploaded.")  #message after csv file upload
+            try:
+                if str(csv_file) in filelog.objects.filter(file_name = str(csv_file)).values_list('file_name')[0][0]:   #checks if file exist 
+                    messages.error(request,"File Already Exist.")
                     context  = { 'loginuserid' : userid,
                                 'filelogd' : filelogd}
                     return render(request,'home.html',context)
+            except:
+                store(csv_file,userid,filelogd)
+                
 
-                else:
-                    messages.error(request,"Can't Process The File.")
-                    context  = { 'loginuserid' : userid,
-                              'filelogd' : filelogd}
-                    return render(request,'home.html',context)       
-                      
-        
+            else:
+                store(csv_file,userid,filelogd)
+                
         except Exception as e:
-            messages.error(request,f"ERROR : File Not Uploaded {e}")
+            
+            messages.error(request,f"ERROR : File Not Uploaded.")
             context  = { 'loginuserid' : userid,
-                              'filelogd' : filelogd}
+                            'filelogd' : filelogd}
             return render(request,'home.html',context)
 
 
