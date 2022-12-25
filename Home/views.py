@@ -99,6 +99,9 @@ def homepage(request):
                               'filelogd' : filelogd}
                 return render(request,'home.html',context)
 
+            if str(csv_file) in filelog.objects.filter(file_name = str(csv_file)).values_list('file_name')[0][0]:   #checks if file exist 
+                messages.error(request,"File Already Exist.")
+
 
             
             else:
@@ -108,40 +111,44 @@ def homepage(request):
 
                 print(headers)
                 # """ CHECKING OF HEADERS WITH THE ALGORITHM REQUIREMENTS"""
-            
-                fp = open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples' , str(csv_file)), 'x')
-                fp1 = open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples\CSV UPLOADS', str(csv_file)),'x')
-                fp.close()
-                fp1.close()
+                if len(headers) == 5:
 
-                # shutil.copy(str(csv_file), os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples' , str(csv_file)))
-                # file saved
-
-                text = '\\n'
-                with csv_file.open('rb') as read_obj, \
-                        open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples\CSV UPLOADS', str(csv_file)), 'w', newline='') as write_obj:
-                   
-                    csv_reader = reader(codecs.iterdecode(read_obj, 'utf-8'))
-                
-                    csv_writer = writer(write_obj)
+                    fp = open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples' , str(csv_file)), 'x')
+                    fp1 = open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples\CSV UPLOADS', str(csv_file)),'x')
+                    fp.close()
+                    fp1.close()
+               
+                    text = '\\n'
+                    with csv_file.open('rb') as read_obj, \
+                            open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV Samples\CSV UPLOADS', str(csv_file)), 'w', newline='') as write_obj:
                     
-                    #appending
-                    for row in csv_reader:
-                        row.append(text)
-                        csv_writer.writerow(row)        
+                        csv_reader = reader(codecs.iterdecode(read_obj, 'utf-8'))
+                    
+                        csv_writer = writer(write_obj)
+                        
+                        #appending
+                        for row in csv_reader:
+                            row.append(text)
+                            csv_writer.writerow(row)        
 
-                x = len(filelog.objects.all().values_list('file_name'))
-                filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing")
-                
-                os.remove(os.path.join("D:\Miniature Compute Unit Web Layer\MCU\CSV Samples" , str(csv_file)))
-                messages.success(request,"File Uploaded.")  #message after csv file upload
-                context  = { 'loginuserid' : userid,
+                    x = len(filelog.objects.all().values_list('file_name'))
+                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", algorithm = algorithm)
+                    
+                    os.remove(os.path.join("D:\Miniature Compute Unit Web Layer\MCU\CSV Samples" , str(csv_file)))
+                    messages.success(request,"File Uploaded.")  #message after csv file upload
+                    context  = { 'loginuserid' : userid,
+                                'filelogd' : filelogd}
+                    return render(request,'home.html',context)
+
+                else:
+                    messages.error(request,"Can't Process The File.")
+                    context  = { 'loginuserid' : userid,
                               'filelogd' : filelogd}
-                return render(request,'home.html',context)
+                    return render(request,'home.html',context)       
                       
         
         except Exception as e:
-            messages.error(request,f"ERROR : File not uploaded {e}")
+            messages.error(request,f"ERROR : File Not Uploaded {e}")
             context  = { 'loginuserid' : userid,
                               'filelogd' : filelogd}
             return render(request,'home.html',context)
