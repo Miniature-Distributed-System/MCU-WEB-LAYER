@@ -20,3 +20,15 @@ class filelog(models.Model):
     class meta:
         db_table = "mcu"
 
+class candidate_algo(models.Model):
+    sky = models.CharField(max_length=10)
+    temperature = models.CharField(max_length=10)
+    humid = models.CharField(max_length=10)
+    wind = models.CharField(max_length=10)
+    water = models.CharField(max_length=10)
+    forecast = models.CharField(max_length=10)
+    output = models.CharField(max_length=10)
+    filename= models.CharField(max_length=10)
+
+    class meta:
+        db_table = "mcu"

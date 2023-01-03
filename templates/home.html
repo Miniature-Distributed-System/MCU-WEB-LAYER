@@ -95,7 +95,7 @@
             <td>{{ x.file_name }}</td>
             <td>{{ x.status }}</td>
             <td><a href="/delete/{{ x.id }},{{x.userid}}">Delete</a> | 
-                <a href="#">Result</a></td>
+                <a href="/result/{{ loginuserid }},{{x.file_name}}">Result</a></td>
             </td>
           </tr>
           {% endfor %}

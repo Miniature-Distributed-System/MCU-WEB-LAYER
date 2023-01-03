@@ -3,8 +3,9 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.urls import reverse
 import pandas as pd
-from Home.models import usersinfo, filelog
+from Home.models import usersinfo, filelog, candidate_algo
 import random
+import io
 from django.template import loader
 from csv import reader
 from csv import writer
@@ -132,7 +133,22 @@ def homepage(request):
 
                             x = len(filelog.objects.all().values_list('file_name'))
                             filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", algorithm = algorithm)
-                            
+                            # Storing of file contents in db
+                            dataset =  csv_file.read().decode('UTF-8')  #reading the csv
+                            istring = io.StringIO(dataset)              #setting a file object
+                            next(istring)
+                            for column in reader(istring,delimiter=',',quotechar = '|'):
+                                candidate_algo.objects.update_or_create(
+                                    sky = column[0],
+                                    temperature = column[1],
+                                    humid = column[2],
+                                    wind = column[3],
+                                    water = column[4],
+                                    forecast = column[5],
+                                    output = column[6],
+                                    filename = str(csv_file)
+                    
+                                )
                             os.remove(os.path.join("D:\Miniature Compute Unit Web Layer\MCU\CSV Samples" , str(csv_file)))
                             messages.success(request,"File Uploaded.")  #message after csv file upload
                             context  = { 'loginuserid' : userid,
@@ -222,5 +238,17 @@ def delete(request,id,userid):
                               'filelogd' : filelogd}
         return render(request,'home.html',context)
 
+def result(request,loginuserid,file_name):
 
-    
+    context = {
+        "loginuserid" : loginuserid,
+        "sky" : candidate_algo.objects.filter(filename = file_name).values_list('sky')[0][0],
+        "temperature" : candidate_algo.objects.filter(filename = file_name).values_list('temperature')[0][0],
+        "humid" : candidate_algo.objects.filter(filename = file_name).values_list('humid')[0][0],
+        "wind"  : candidate_algo.objects.filter(filename = file_name).values_list('wind')[0][0],
+        "water" : candidate_algo.objects.filter(filename = file_name).values_list('water')[0][0],
+        "forecast" : candidate_algo.objects.filter(filename = file_name).values_list('forecast')[0][0],
+        "output" : candidate_algo.objects.filter(filename = file_name).values_list('output')[0][0]
+    }
+
+    return render(request,"result.html",context)
