@@ -19,7 +19,7 @@
   <nav style="position: fixed; overflow: hidden; top: 0; width: 100%; background-color: black;"
     class="navbar navbar-dark bg-dark">
     <a style="font-family: serif; font-size: x-large;" class="navbar-brand" href="#">Miniature Compute
-      Unit</a>
+      Unit&nbsp;&nbsp;&nbsp;&nbsp;{{loginuserid}}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -37,23 +37,22 @@
         </li>
       </ul>
     </div>
-  </nav>
+  </nav><br><br><br>
   <table style="width: 950px; margin-left: auto; margin-right: auto; text-align: center; " class="table table-dark">
     <thead>
       <tr>
-        <th scope="col">{{sky head}}</th>
-        <th scope="col">{{temperature head}}</th>
-        <th scope="col">{{humid head}}</th>
-        <th scope="col">{{wind head}}</th>
-        <th scope="col">{{water head}}</th>
-        <th scope="col">{{forcast head}}</th>
-        <th scope="col">{{output head}}</th>
+        <th scope="col">Sky</th>
+        <th scope="col">Temperature</th>
+        <th scope="col">Humid</th>
+        <th scope="col">Wind</th>
+        <th scope="col">Water</th>
+        <th scope="col">Forcast</th>
+        <th scope="col">Output</th>
       </tr>
     </thead>
     <tbody>
-      {% for x in filelogd %}
       <tr>
-        <th scope="row">{{sky}}</th>
+        <th>{{sky}}</th>
         <td>{{temperature}}</td>
         <td>{{humid}}</td>
         <td>{{wind}}</td>
@@ -63,7 +62,6 @@
         </td>
         </td>
       </tr>
-      {% endfor %}
     </tbody>
   </table>
 
