@@ -217,7 +217,7 @@ def homepage(request):
 
 def delete(request,id,userid,file_name):
     filelogd = filelog.objects.filter(userid = userid).values()
-    candidate_algo.objects.get(filename = file_name).delete()
+    candidate_algo.objects.filter(filename = file_name).delete()
     try:
         filename = filelog.objects.filter(id = id).values_list('file_name')[0][0]
         filelog.objects.get(id=id).delete()
