@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!-- Custom CSS -->
+  <link rel="stylesheet" href="/MCU/static/css/main.css">
+  <script type="text/javascript" src="/MCU/static/js/tree-maker.js"></script>
   <link rel="stylesheet" href="/static/css/results.css">
   <title>MCU | RESULT</title>
 </head>
@@ -38,6 +40,7 @@
       </ul>
     </div>
   </nav><br><br><br>
+  <h1 style="color: black; margin-left: 268px; font-size: larger;">Dataset :</h1>
   <table style="width: 950px; margin-left: auto; margin-right: auto; text-align: center; " class="table table-dark">
     <thead>
       <tr>
@@ -66,7 +69,109 @@
       {% endfor %}
     </tbody>
   </table>
+  <h1 style="color: black; margin-left: 268px; font-size: larger;">RESULT :</h1>
+  <div style = "width: 1000px; margin-left: auto; margin-right: auto;" id="my_tree"></div>
+  <script type="text/javascript">
+    let specific = {
+      4: {
+        6: {
+          9: {
+            most_general: ''
+          }
+        },
+        7: {
+          9: ''
+        },
+        8: {
+          9: ''
+        }
+      },
+      5: {
+        6: {
+          9: ''
+        },
+        7: {
 
+        },
+        8: {
+
+        }
+      },
+    }
+    let generalized = {
+      solution1: {
+        specific,
+      },
+      solution2: {
+        specific,
+      },
+      solution3: {
+        specific,
+      },
+
+
+    }
+
+
+    let tree = {
+      most_specific: {
+
+
+        0: {
+          1: {
+
+            2: {
+              3: {
+
+                generalized,
+              },
+
+            },
+
+
+
+
+          },
+
+
+
+
+
+
+        },
+      },
+
+    };
+
+    let params = {
+      most_specific: { trad: 'most specific' },
+      0: { trad: 'Ø,Ø,Ø,Ø,Ø,Ø' },
+
+      1: { trad: 'Sunny,Warm,Normal,Strong,Warm,Same' },
+      2: { trad: 'Sunny,Warm,?,Strong,Warm,Same' },
+      3: { trad: 'Sunny,Warm,?,Strong,?,?' },
+      4: { trad: 'Sunny,?,?,?,?,?' },
+      5: { trad: '?,Warm,?,?,?,?' },
+      6: { trad: 'Sunny,?,?,?,?,?' },
+      7: { trad: '?,Warm,?,?,?,?' },
+      8: { trad: '?,?,?,?,?,Same' },
+      9: { trad: '?,?,?,?,?,?' },
+      most_general: { trad: 'most general' },
+      solution1: { trad: 'Sunny,?,?,Strong,?,?' },
+      solution2: { trad: 'Sunny,Warm,?,?,?,?' },
+      solution3: { trad: '?,Warm,?,Strong,?,? ' }
+    };
+
+    treeMaker.default(tree, {
+      id: 'my_tree',
+      card_click: function (element) {
+        console.log(element);
+      },
+      treeParams: params,
+      'link_width': '4px',
+      'link_color': '#2199e8',
+    });
+  </script>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
