@@ -139,7 +139,8 @@ def homepage(request):
                             
                                         )
 
-                                    messages.success(request,"File Uploaded.")  #message after csv file upload
+                                    candidate_algo.objects.filter(filename = str(csv_file)).first().delete()
+                                    messages.success(request,f"File Uploaded. {str(csv_file)}") #message after csv file upload
                                     context  = { 'loginuserid' : userid,
                                                 'filelogd' : filelogd}
                                     return render(request,'home.html',context)
@@ -185,8 +186,9 @@ def homepage(request):
                                             filename = str(csv_file)
                             
                                         )
-
-                                    messages.success(request,"File Uploaded.")  #message after csv file upload
+                                    
+                                    candidate_algo.objects.filter(filename = str(csv_file)).first().delete()
+                                    messages.success(request,f"File Uploaded. {str(csv_file)}")  #message after csv file upload
                                     context  = { 'loginuserid' : userid,
                                                 'filelogd' : filelogd}
                                     return render(request,'home.html',context)
@@ -223,7 +225,7 @@ def delete(request,id,userid,file_name):
             os.remove(os.path.join("D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS", filename))
         except:
             None      
-        messages.success(request,"File Deleted Successfully")
+        messages.success(request,f"File Deleted Successfully. {file_name}")
         context  = { 'loginuserid' : userid,
                                 'filelogd' : filelogd}
         return render(request,'home.html',context)
