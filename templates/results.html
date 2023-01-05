@@ -46,22 +46,24 @@
         <th scope="col">Humid</th>
         <th scope="col">Wind</th>
         <th scope="col">Water</th>
-        <th scope="col">Forcast</th>
+        <th scope="col">Forecast</th>
         <th scope="col">Output</th>
       </tr>
     </thead>
     <tbody>
+      {% for x in candidate_algo_data %}
       <tr>
-        <th>{{sky}}</th>
-        <td>{{temperature}}</td>
-        <td>{{humid}}</td>
-        <td>{{wind}}</td>
-        <td>{{water}}</td>
-        <td>{{forcast}}</td>
-        <td>{{output}}</td>
+        <th>{{x.sky}}</th>
+        <td>{{x.temperature}}</td>
+        <td>{{x.humid}}</td>
+        <td>{{x.wind}}</td>
+        <td>{{x.water}}</td>
+        <td>{{x.forecast}}</td>
+        <td>{{x.output}}</td>
         </td>
         </td>
       </tr>
+      {% endfor %}
     </tbody>
   </table>
 

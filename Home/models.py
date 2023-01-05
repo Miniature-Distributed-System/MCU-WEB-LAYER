@@ -21,14 +21,14 @@ class filelog(models.Model):
         db_table = "mcu"
 
 class candidate_algo(models.Model):
-    sky = models.CharField(max_length=10)
-    temperature = models.CharField(max_length=10)
-    humid = models.CharField(max_length=10)
-    wind = models.CharField(max_length=10)
-    water = models.CharField(max_length=10)
-    forecast = models.CharField(max_length=10)
-    output = models.CharField(max_length=10)
-    filename= models.CharField(max_length=10)
+    sky = models.CharField(max_length=50)
+    temperature = models.CharField(max_length=50)
+    humid = models.CharField(max_length=50)
+    wind = models.CharField(max_length=50)
+    water = models.CharField(max_length=50)
+    forecast = models.CharField(max_length=50)
+    output = models.CharField(max_length=50)
+    filename= models.CharField(max_length=100)
 
     class meta:
         db_table = "mcu"
