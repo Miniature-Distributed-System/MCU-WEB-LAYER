@@ -3,9 +3,8 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.urls import reverse
 import pandas as pd
-from Home.models import usersinfo, filelog, candidate_algo
+from Home.models import usersinfo, filelog, diagnosis_instance,disease_instance
 import random
-from django.template import loader
 from csv import reader
 from csv import writer
 import codecs
@@ -83,7 +82,7 @@ def homepage(request):
     if request.method == "POST": 
         userid = request.POST.get('userid')
         filelogd = filelog.objects.filter(userid = userid).values()
-        algorithm = request.POST.get('algo')
+        instance_type = request.POST.get('algo')
            
         csv_file = request.FILES['file']  
             
@@ -107,8 +106,9 @@ def homepage(request):
                         print(headers)
                         print(len(headers))
                         # """ CHECKING OF HEADERS WITH THE ALGORITHM REQUIREMENTS"""
-                        if algorithm == "Candidate":
-                            if len(headers) == 7:
+                        if instance_type == "Diagnosis":
+                            diagonsis_headers = ['diagnosis_id','fever','medicine']
+                            if len(headers) == 3 and diagonsis_headers == list(headers):
                                 
                                     with csv_file.open('rb') as read_obj, \
                                         open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)), 'w', newline='') as write_obj:
@@ -121,31 +121,61 @@ def homepage(request):
                                             csv_writer.writerow(row)  
 
                                     x = len(filelog.objects.all().values_list('file_name'))
-                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", algorithm = algorithm)
+                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", instance_type = instance_type)
 
                                     with open(str(csv_file)) as csvfile1:
                                         csvfile = csv.reader(csvfile1,delimiter=",")
                                         for row in csvfile:
-                                            candidate_algo.objects.update_or_create(
-                                            sky = row[0],
-                                            temperature = row[1],
-                                            humid = row[2],
-                                            wind = row[3],
-                                            water = row[4],
-                                            forecast = row[5],
-                                            output = row[6],
+                                            diagnosis_instance.objects.update_or_create(
+                                            diagnosis_id = row[0],
+                                            fever = row[1],
+                                            medicine = row[2],
                                             filename = str(csv_file)
                             
                                         )
 
-                                    candidate_algo.objects.filter(filename = str(csv_file)).first().delete()
+                                    diagnosis_instance.objects.filter(filename = str(csv_file)).first().delete()
+                                    messages.success(request,f"File Uploaded. {str(csv_file)}") #message after csv file upload
+                                    context  = { 'loginuserid' : userid,
+                                                'filelogd' : filelogd}
+                                    return render(request,'home.html',context)
+
+
+                        elif instance_type == "Disease":
+                            disease_header = ['disease_id','fever','medicine']
+                            if len(headers) == 3 and disease_header == list(headers):
+                                    with csv_file.open('rb') as read_obj, \
+                                        open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)), 'w', newline='') as write_obj:
+                                    
+                                        csv_reader = reader(codecs.iterdecode(read_obj, 'utf-8'))
+                                    
+                                        csv_writer = writer(write_obj)
+                                        
+                                        for row in csv_reader:
+                                            csv_writer.writerow(row)  
+
+                                    x = len(filelog.objects.all().values_list('file_name'))
+                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", instance_type = instance_type)
+
+                                    with open(str(csv_file)) as csvfile1:
+                                        csvfile = csv.reader(csvfile1,delimiter=",")
+                                        for row in csvfile:
+                                            disease_instance.objects.update_or_create(
+                                            disease_id = row[0],
+                                            fever = row[1],
+                                            medicine = row[2],
+                                            filename = str(csv_file)
+                            
+                                        )
+
+                                    disease_instance.objects.filter(filename = str(csv_file)).first().delete()
                                     messages.success(request,f"File Uploaded. {str(csv_file)}") #message after csv file upload
                                     context  = { 'loginuserid' : userid,
                                                 'filelogd' : filelogd}
                                     return render(request,'home.html',context)
 
                         else:
-                                messages.error(request,"Can't Process The File.")
+                                messages.error(request,"Can't Process The File. Attribute might be missing.")
                                 context  = { 'loginuserid' : userid,
                                         'filelogd' : filelogd}
                                 return render(request,'home.html',context)
@@ -154,9 +184,11 @@ def homepage(request):
                         df =  pd.read_csv(csv_file)
                         headers = df.axes[1]        #reading the headers of the csv and storing into a list
                         print(headers)
+                        print(len(headers))
                         # """ CHECKING OF HEADERS WITH THE ALGORITHM REQUIREMENTS"""
-                        if algorithm == "Candidate":
-                            if len(headers) == 7:
+                        if instance_type == "Diagnosis":
+                            diagonsis_headers = ['diagnosis_id','fever','medicine']
+                            if len(headers) == 3 and diagonsis_headers == list(headers):
                                 
                                     with csv_file.open('rb') as read_obj, \
                                         open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)), 'w', newline='') as write_obj:
@@ -169,31 +201,60 @@ def homepage(request):
                                             csv_writer.writerow(row)  
 
                                     x = len(filelog.objects.all().values_list('file_name'))
-                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", algorithm = algorithm)
+                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", instance_type = instance_type)
 
                                     with open(str(csv_file)) as csvfile1:
                                         csvfile = csv.reader(csvfile1,delimiter=",")
                                         for row in csvfile:
-                                            candidate_algo.objects.update_or_create(
-                                            sky = row[0],
-                                            temperature = row[1],
-                                            humid = row[2],
-                                            wind = row[3],
-                                            water = row[4],
-                                            forecast = row[5],
-                                            output = row[6],
+                                            diagnosis_instance.objects.update_or_create(
+                                            diagnosis_id = row[0],
+                                            fever = row[1],
+                                            medicine = row[2],
                                             filename = str(csv_file)
                             
                                         )
+
+                                    diagnosis_instance.objects.filter(filename = str(csv_file)).first().delete()
+                                    messages.success(request,f"File Uploaded. {str(csv_file)}") #message after csv file upload
+                                    context  = { 'loginuserid' : userid,
+                                                'filelogd' : filelogd}
+                                    return render(request,'home.html',context)
+
+                        elif instance_type == "Disease":
+                            disease_header = ['disease_id','fever','medicine']
+                            if len(headers) == 3 and disease_header == list(headers):
+                                    with csv_file.open('rb') as read_obj, \
+                                        open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)), 'w', newline='') as write_obj:
                                     
-                                    candidate_algo.objects.filter(filename = str(csv_file)).first().delete()
-                                    messages.success(request,f"File Uploaded. {str(csv_file)}")  #message after csv file upload
+                                        csv_reader = reader(codecs.iterdecode(read_obj, 'utf-8'))
+                                    
+                                        csv_writer = writer(write_obj)
+                                        
+                                        for row in csv_reader:
+                                            csv_writer.writerow(row)  
+
+                                    x = len(filelog.objects.all().values_list('file_name'))
+                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", instance_type = instance_type)
+
+                                    with open(str(csv_file)) as csvfile1:
+                                        csvfile = csv.reader(csvfile1,delimiter=",")
+                                        for row in csvfile:
+                                            disease_instance.objects.update_or_create(
+                                            disease_id = row[0],
+                                            fever = row[1],
+                                            medicine = row[2],
+                                            filename = str(csv_file)
+                            
+                                        )
+
+                                    disease_instance.objects.filter(filename = str(csv_file)).first().delete()
+                                    messages.success(request,f"File Uploaded. {str(csv_file)}") #message after csv file upload
                                     context  = { 'loginuserid' : userid,
                                                 'filelogd' : filelogd}
                                     return render(request,'home.html',context)
 
                         else:
-                                messages.error(request,"Can't Process The File.")
+                                messages.error(request,"Can't Process The File. Attribute might be missing.")
                                 context  = { 'loginuserid' : userid,
                                         'filelogd' : filelogd}
                                 return render(request,'home.html',context)
@@ -213,9 +274,12 @@ def homepage(request):
 
 
 
-def delete(request,id,userid,file_name):
+def delete(request,id,userid,file_name,instance_type):
     filelogd = filelog.objects.filter(userid = userid).values()
-    candidate_algo.objects.filter(filename = file_name).delete()
+    if instance_type == "Diagnosis":
+        diagnosis_instance.objects.filter(filename = file_name).delete()
+    elif instance_type == "Disease":
+        disease_instance.objects.filter(filename = file_name).delete()
     try:
         filename = filelog.objects.filter(id = id).values_list('file_name')[0][0]
         filelog.objects.get(id=id).delete()
@@ -235,12 +299,19 @@ def delete(request,id,userid,file_name):
                               'filelogd' : filelogd}
         return render(request,'home.html',context)
 
-def result(request,loginuserid,file_name):
-
-    candidate_algo_data  = candidate_algo.objects.filter(filename = file_name).all()
+def result(request,loginuserid,file_name,instance_type):
+    
+    if instance_type == "Diagnosis":
+        data  = diagnosis_instance.objects.filter(filename = file_name).all()
+    if instance_type == "Disease":
+        data  = disease_instance.objects.filter(filename = file_name).all()
     context = {
         "loginuserid" : loginuserid,
-        "candidate_algo_data" : candidate_algo_data
+        "data" : data
         }
 
-    return render(request,"results.html",context)
+    if instance_type == "Diagnosis":
+        return render(request,"results.html",context)
+
+    if instance_type == "Disease":
+        return render(request,"results1.html",context)    

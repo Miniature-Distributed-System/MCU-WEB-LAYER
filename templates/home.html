@@ -58,9 +58,8 @@
         <input style="display: none;" name="userid" value="{{loginuserid}}">
         <select style="margin-left: 780px; width: 130px; border-radius: 5px; background-color: aliceblue;" name="algo">
           <option selected disabled>Algorithm</option>
-          <option value="Candidate">1. Candidate Algorithm</option>
-          <option value="Naive">2. Naive Algorithm</option>
-          <option value="K-Means">3. K-Means Algorithm</option>
+          <option value = "Diagnosis" >1. Diagnosis</option>
+          <option value = "Disease" >2. Disease</option>
         </select>
        
         <label for="upload">Upload</label><br>
@@ -84,6 +83,7 @@
           <tr>
             <th scope="col">File ID</th>
             <th scope="col">Filename</th>
+            <th scope="col">Instance type</th>
             <th scope="col">Status</th>
             <th scope="col">Controls</th>
           </tr>
@@ -93,9 +93,10 @@
           <tr>
             <th scope="row">{{x.id}}</th>
             <td>{{ x.file_name }}</td>
+            <td>{{ x.instance_type}}</td>
             <td>{{ x.status }}</td>
-            <td><a href="/delete/{{ x.id }},{{x.userid}},{{x.file_name}}">Delete</a> | 
-                <a href="/result/{{ loginuserid }},{{x.file_name}}">Result</a></td>
+            <td><a href="/delete/{{ x.id }},{{x.userid}},{{x.file_name}},{{x.instance_type}}">Delete</a>
+                <a href="/result/{{ loginuserid }},{{x.file_name}},{{x.instance_type}}">Result</a></td>
             </td>
           </tr>
           {% endfor %}

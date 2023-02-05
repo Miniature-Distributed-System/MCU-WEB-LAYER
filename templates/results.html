@@ -38,36 +38,38 @@
         </li>
       </ul>
     </div>
-  </nav><br><br><br><br><br>
-  <h1 style="color: black; margin-left: 268px; font-size: larger;">Results :</h1>
-  <table style="width: 950px; margin-left: auto; margin-right: auto; text-align: center; " class="table table-dark">
-    <thead>
-      <tr>
-        <th scope="col">Sky</th>
-        <th scope="col">Temperature</th>
-        <th scope="col">Humid</th>
-        <th scope="col">Wind</th>
-        <th scope="col">Water</th>
+  </nav><br><br>
+  <div class="container1">
+    <h1 style="color: black; margin-left: 10px; font-size: larger; font-weight: 600;">Results :</h1>
+    <table style="width: 1100px; margin-left: auto; margin-right: auto; text-align: center; border-radius: 5px; " class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Diagnosis_id</th>
+          <th scope="col">Fever</th>
+          <th scope="col">Medicine</th>
+          <th scope="col">Filename</th>
+          <!-- <th scope="col">Water</th>
         <th scope="col">Forecast</th>
-        <th scope="col">Output</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for x in candidate_algo_data %}
-      <tr>
-        <th>{{x.sky}}</th>
-        <td>{{x.temperature}}</td>
-        <td>{{x.humid}}</td>
-        <td>{{x.wind}}</td>
-        <td>{{x.water}}</td>
+        <th scope="col">Output</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        {% for x in data %}
+        <tr>
+          <th>{{x.diagnosis_id}}</th>
+          <td>{{x.fever}}</td>
+          <td>{{x.medicine}}</td>
+          <td>{{x.filename}}</td>
+          <!-- <td>{{x.water}}</td>
         <td>{{x.forecast}}</td>
-        <td>{{x.output}}</td>
-        </td>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+        <td>{{x.output}}</td> -->
+          </td>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
   <!-- <h1 style="color: black; margin-left: 268px; font-size: larger;">RESULT :</h1> -->
   <!-- <div style = "margin-left: 500px;" class="tree">
     <ul>
