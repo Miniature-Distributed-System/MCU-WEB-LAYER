@@ -12,4 +12,24 @@ with open(r"D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS\candidate_algo.c
                                     print(row[6])
                                     
                     
-                                
+# tree code
+
+#   <!-- <h1 style="color: black; margin-left: 268px; font-size: larger;">RESULT :</h1> -->
+#   <!-- <div style = "margin-left: 500px;" class="tree">
+#     <ul>
+#       <li>
+#         <a href="#">{&nbsp;&nbsp;&nbsp;0,0,0,0,0,0,0&nbsp;&nbsp;&nbsp;}</a>&nbsp;&nbsp;S0<br><br>
+#         <a href="#">{&nbsp;&nbsp;&nbsp;sunny,warm,normal,strong,warm,same&nbsp;&nbsp;&nbsp;}</a>&nbsp;&nbsp;S1<br><br>
+#         <a href="#">{&nbsp;&nbsp;&nbsp;sunny,warm,?,strong,warm,same&nbsp;&nbsp;&nbsp;}</a>&nbsp;&nbsp;S2&nbsp;S3<br><br>
+#         <a href="#">{&nbsp;&nbsp;&nbsp;sunny,warm,?,strong,?,?&nbsp;&nbsp;&nbsp;}</a>&nbsp;&nbsp;S4<br><br>
+#           <a href="#">{&nbsp;&nbsp;&nbsp;sunny,?,?,strong,?,?&nbsp;&nbsp;&nbsp;}</a>
+#           <a href="#">{&nbsp;&nbsp;&nbsp;sunny,warm,?,?,?,?&nbsp;&nbsp;&nbsp;}</a>
+#           <a href="#">{&nbsp;&nbsp;&nbsp;?,warm,?,strong,?,?&nbsp;&nbsp;&nbsp;}</a><br><br>
+#           <a href="#">{&nbsp;&nbsp;&nbsp;sunny,?,?,?,?,?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?,warm,?,?,?,?&nbsp;&nbsp;&nbsp;}</a>&nbsp;&nbsp;G4<br><br>
+#           <a href="#">{&nbsp;&nbsp;&nbsp;sunny,?,?,?,?,?&nbsp;&nbsp;&nbsp;&nbsp;?,warm,?,?,?,?&nbsp;&nbsp;&nbsp;&nbsp;?,?,?,?,?,same&nbsp;&nbsp;&nbsp;}</a>&nbsp;&nbsp;G3<br><br>
+#           <a href="#">{&nbsp;&nbsp;&nbsp;?,?,?,?,?,?&nbsp;&nbsp;&nbsp;}</a>&nbsp;&nbsp;G0,G1,G2
+#       </li>
+#     </ul>
+#   </div> -->
+#   <!-- Optional JavaScript -->
+#   <!-- jQuery first, then Popper.js, then Bootstrap JS -->

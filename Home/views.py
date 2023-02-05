@@ -5,7 +5,6 @@ from django.urls import reverse
 import pandas as pd
 from Home.models import usersinfo, filelog, candidate_algo
 import random
-import io
 from django.template import loader
 from csv import reader
 from csv import writer
