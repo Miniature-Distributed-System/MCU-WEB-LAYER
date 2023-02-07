@@ -31,6 +31,10 @@ class disease_instance(models.Model):
     fever = models.CharField(max_length=50)
     medicine = models.CharField(max_length=50)
     filename = models.CharField(max_length=100)
+
+class devlog(models.Model):
+    devid = models.CharField(max_length=20)
+    password = models.CharField(max_length=20)
     
     class meta:
         db_table = "mcu"

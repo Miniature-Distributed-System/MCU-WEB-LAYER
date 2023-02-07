@@ -57,9 +57,9 @@
         {% csrf_token %}
         <input style="display: none;" name="userid" value="{{loginuserid}}">
         <select style="margin-left: 780px; width: 130px; border-radius: 5px; background-color: aliceblue;" name="algo">
-          <option selected disabled>Algorithm</option>
-          <option value = "Diagnosis" >1. Diagnosis</option>
-          <option value = "Disease" >2. Disease</option>
+          <option selected disabled>Instance</option>
+          <option value = "Diagnosis" >1.Diagnosis</option>
+          <option value = "Disease" >2.Disease</option>
         </select>
        
         <label for="upload">Upload</label><br>
@@ -95,7 +95,7 @@
             <td>{{ x.file_name }}</td>
             <td>{{ x.instance_type}}</td>
             <td>{{ x.status }}</td>
-            <td><a href="/delete/{{ x.id }},{{x.userid}},{{x.file_name}},{{x.instance_type}}">Delete</a>
+            <td><a href="/delete/{{ x.id }},{{x.userid}},{{x.file_name}},{{x.instance_type}}">Delete</a> |
                 <a href="/result/{{ loginuserid }},{{x.file_name}},{{x.instance_type}}">Result</a></td>
             </td>
           </tr>
