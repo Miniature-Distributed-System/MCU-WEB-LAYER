@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.urls import reverse
 import pandas as pd
-from Home.models import usersinfo, filelog, diagnosis_instance,disease_instance
+from Home.models import usersinfo, filelog, diagnosis_instance,disease_instance,devlog
 import random
 from csv import reader
 from csv import writer
@@ -315,3 +315,30 @@ def result(request,loginuserid,file_name,instance_type):
 
     if instance_type == "Disease":
         return render(request,"results1.html",context)    
+
+
+def devlogin(request):
+    if request.method == "POST":
+        devid = request.POST.get('devid')
+        devpassword = request.POST.get('devpassword')       
+
+        if devid == "" and devpassword == "" :
+            messages.error(request,"Please fill the details")
+            return render(request,'login.html')
+        
+        try:
+            if devid in str(devlog.objects.filter(devid = devid).values_list("devid")[0][0]) and devpassword in devlog.objects.filter(password = devpassword).values_list("password")[0][0]:
+                context = {
+                    "devid" : devid
+                }
+                return render(request,'devhome.html',context)
+
+            else:
+                messages.error(request,"Login credentials are incorrect")
+                return render(request,"devlogin.html")    
+
+        except:
+            messages.error(request,"Login credentials are incorrect")
+            return render(request,"devlogin.html")
+       
+    return render(request,'devlogin.html')
