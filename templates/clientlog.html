@@ -11,7 +11,7 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="static/css/devhome.css">
+  <link rel="stylesheet" href="/static/css/clientlog.css">
 
 
   <title>MCU | ADMIN HOME</title>
@@ -41,14 +41,28 @@
       </ul>
     </div>
   </nav><br><br><br>
-  <h1 style="margin-left: 15px;font-size: 32px; font-family: serif; color:  black; font-weight: 550;">Welcome Administrator {{devid}}</h1>
+  <h1 style="margin-left: 15px;font-size: 32px; font-family: serif; color:  black; font-weight: 550;">Client Log</h1>
   </div>
   
   <div class="container1">
-  <ul><button><a href = "/clientlog/{{devid}}" >Client Logs</a></button></ul>
-  <ul><button><a href = "addinstance.html" ></a>Add An Instance</button></ul>
-  <ul><button><a href = "removeinstance.html" ></a>Remove An Instance</button></ul>
-  <ul><button><a href = "/activeinstance/{{devid}}" ></a>Active Instances</button></ul>
+    <table style="width: 1100px; margin-left: auto; margin-right: auto; text-align: center; border-radius: 5px; " class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">User ID</th>
+          <th scope="col">Username</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for x in data %}
+        <tr>
+          <th>{{x.userid}}</th>
+          <td>{{x.username}}</td>
+          </td>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 
 

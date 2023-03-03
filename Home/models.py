@@ -35,6 +35,14 @@ class disease_instance(models.Model):
 class devlog(models.Model):
     devid = models.CharField(max_length=20)
     password = models.CharField(max_length=20)
+
+class active_instance(models.Model):
+    active_instance_id = models.CharField(max_length=20)
+    active_instance_name = models.CharField(max_length=20)
+    active_instance_type = models.CharField(max_length=20)
+    active_instance_col_no = models.IntegerField(max_length=2)
+    mandate_col1 = models.CharField(max_length=10)
+    mandate_col2 = models.CharField(max_length=10)
     
     class meta:
         db_table = "mcu"

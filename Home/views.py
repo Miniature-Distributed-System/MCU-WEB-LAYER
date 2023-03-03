@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.urls import reverse
 import pandas as pd
-from Home.models import usersinfo, filelog, diagnosis_instance,disease_instance,devlog
+from Home.models import usersinfo, filelog, diagnosis_instance,disease_instance,devlog,active_instance
 import random
 from csv import reader
 from csv import writer
@@ -342,3 +342,26 @@ def devlogin(request):
             return render(request,"devlogin.html")
        
     return render(request,'devlogin.html')
+
+def clientlog(request,devid):
+
+    data  = usersinfo.objects.all()
+    context = {
+        "devid" : devid,
+        "data" : data
+        }
+
+
+    return render(request,"clientlog.html",context)
+
+
+def viewactiveinstance(request,devid):
+     
+    data = active_instance.objects.all();
+
+    context = {
+         "devid" : devid,
+         "data" : data
+    }
+
+    return render(request,"activeinstance.html",context)

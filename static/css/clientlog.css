@@ -1,23 +1,18 @@
 body{
     background-color: cadetblue;
 }
+
+
 .container1{
-    height: auto;
+    height: fit-content;
     margin-bottom: 50px;
-    /* width: 500px; */
+    width: fit-content;
     background: linear-gradient( to right bottom, rgba(93, 93, 93, 0.6), rgba(65, 61, 61, 0.3)); 
     border-radius: 15px;
     border-radius: 10px;
     font-family: arial;
-    font-size: 24px;
     margin-top: 100px;
-    margin-left: 20px;
-    width: 350px;
+    margin-left: auto;
+    margin-right: auto;
     padding: 10px;
-}
-.container1 button{
-    border-radius: 5px;
-    font-size: 20px;
-    font-family: serif;
-    font-weight: 550;
 }
