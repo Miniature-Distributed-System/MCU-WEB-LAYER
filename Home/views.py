@@ -343,6 +343,10 @@ def devlogin(request):
        
     return render(request,'devlogin.html')
 
+def devhome(request):
+     
+    return render(request,"devhome.html")
+
 def clientlog(request,devid):
 
     data  = usersinfo.objects.all()
@@ -357,7 +361,7 @@ def clientlog(request,devid):
 
 def viewactiveinstance(request,devid):
      
-    data = active_instance.objects.all();
+    data = active_instance.objects.all()
 
     context = {
          "devid" : devid,
@@ -365,3 +369,9 @@ def viewactiveinstance(request,devid):
     }
 
     return render(request,"activeinstance.html",context)
+
+def deleteInstance(request,active_instance_id):
+     
+    active_instance.objects.filter(active_instance_id = active_instance_id).delete()
+
+    return render(request,"activeinstance.html")
