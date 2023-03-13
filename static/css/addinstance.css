@@ -1,0 +1,89 @@
+body{
+    background-color: cadetblue;
+}
+.container1{
+    height: fit-content;
+    margin-bottom: 50px;
+    /* width: 500px; */
+    background: linear-gradient( to right bottom, rgba(93, 93, 93, 0.6), rgba(65, 61, 61, 0.3)); 
+    border-radius: 15px;
+    border-radius: 10px;
+    font-family: arial;
+    font-size: 24px;
+    margin-top: 40px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 500px;
+    padding: 10px;
+    text-align: center;
+}
+
+
+.login-container p{
+        font-family: sans-serif;
+        color: aliceblue;
+        text-align: center;
+        margin-top: 10px;
+        font-size: medium;
+        font-weight: 300;
+}
+
+.subtn {
+    text-align: center;
+    height: 50px;
+    width: fit-content;
+    font-size: x-large;
+    font-family: serif;
+    font-weight: 700;
+    border-radius: 5px;
+    background-color: azure;
+    margin-bottom: 10px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@100;300;400;700&display=swap');
+
+body {
+  background-color: #f0f5ff;
+  font-family: 'Jost',sans-serif;
+  color: #fff;
+}
+
+
+
+input[type="text"]{
+  padding: 10px;
+  margin: 10px auto;
+  display: block;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  background: none;
+  width: 274px;
+  color: black;
+}
+
+input[type="text"]:focus {
+  outline: none;
+}
+
+.controls {
+  width: 294px;
+  margin-left: 25px;
+}
+
+#remove_fields {
+  float: right;
+}
+.controls a i.fa-minus {
+  margin-right: 5px;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+h1 {
+  text-align: center;
+  font-size: 48px;
+  color: #232c3d;
+}

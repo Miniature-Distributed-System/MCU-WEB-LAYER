@@ -3,7 +3,8 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.urls import reverse
 import pandas as pd
-from Home.models import usersinfo, filelog, diagnosis_instance,disease_instance,devlog,active_instance
+from Home.models import usersinfo, filelog,devlog,instances
+from datetime import datetime  
 import random
 from csv import reader
 from csv import writer
@@ -123,18 +124,18 @@ def homepage(request):
                                     x = len(filelog.objects.all().values_list('file_name'))
                                     filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", instance_type = instance_type)
 
-                                    with open(str(csv_file)) as csvfile1:
-                                        csvfile = csv.reader(csvfile1,delimiter=",")
-                                        for row in csvfile:
-                                            diagnosis_instance.objects.update_or_create(
-                                            diagnosis_id = row[0],
-                                            fever = row[1],
-                                            medicine = row[2],
-                                            filename = str(csv_file)
+                                    # with open(str(csv_file)) as csvfile1:
+                                    #     csvfile = csv.reader(csvfile1,delimiter=",")
+                                    #     for row in csvfile:
+                                    #         diagnosis_instance.objects.update_or_create(
+                                    #         diagnosis_id = row[0],
+                                    #         fever = row[1],
+                                    #         medicine = row[2],
+                                    #         filename = str(csv_file)
                             
-                                        )
+                                    #     )
 
-                                    diagnosis_instance.objects.filter(filename = str(csv_file)).first().delete()
+                                    # diagnosis_instance.objects.filter(filename = str(csv_file)).first().delete()
                                     messages.success(request,f"File Uploaded. {str(csv_file)}") #message after csv file upload
                                     context  = { 'loginuserid' : userid,
                                                 'filelogd' : filelogd}
@@ -157,18 +158,18 @@ def homepage(request):
                                     x = len(filelog.objects.all().values_list('file_name'))
                                     filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", instance_type = instance_type)
 
-                                    with open(str(csv_file)) as csvfile1:
-                                        csvfile = csv.reader(csvfile1,delimiter=",")
-                                        for row in csvfile:
-                                            disease_instance.objects.update_or_create(
-                                            disease_id = row[0],
-                                            fever = row[1],
-                                            medicine = row[2],
-                                            filename = str(csv_file)
+                                    # with open(str(csv_file)) as csvfile1:
+                                    #     csvfile = csv.reader(csvfile1,delimiter=",")
+                                    #     for row in csvfile:
+                                    #         disease_instance.objects.update_or_create(
+                                    #         disease_id = row[0],
+                                    #         fever = row[1],
+                                    #         medicine = row[2],
+                                    #         filename = str(csv_file)
                             
-                                        )
+                                    #     )
 
-                                    disease_instance.objects.filter(filename = str(csv_file)).first().delete()
+                                    # disease_instance.objects.filter(filename = str(csv_file)).first().delete()
                                     messages.success(request,f"File Uploaded. {str(csv_file)}") #message after csv file upload
                                     context  = { 'loginuserid' : userid,
                                                 'filelogd' : filelogd}
@@ -203,18 +204,18 @@ def homepage(request):
                                     x = len(filelog.objects.all().values_list('file_name'))
                                     filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", instance_type = instance_type)
 
-                                    with open(str(csv_file)) as csvfile1:
-                                        csvfile = csv.reader(csvfile1,delimiter=",")
-                                        for row in csvfile:
-                                            diagnosis_instance.objects.update_or_create(
-                                            diagnosis_id = row[0],
-                                            fever = row[1],
-                                            medicine = row[2],
-                                            filename = str(csv_file)
+                                    # with open(str(csv_file)) as csvfile1:
+                                    #     csvfile = csv.reader(csvfile1,delimiter=",")
+                                    #     for row in csvfile:
+                                    #         diagnosis_instance.objects.update_or_create(
+                                    #         diagnosis_id = row[0],
+                                    #         fever = row[1],
+                                    #         medicine = row[2],
+                                    #         filename = str(csv_file)
                             
-                                        )
+                                    #     )
 
-                                    diagnosis_instance.objects.filter(filename = str(csv_file)).first().delete()
+                                    # diagnosis_instance.objects.filter(filename = str(csv_file)).first().delete()
                                     messages.success(request,f"File Uploaded. {str(csv_file)}") #message after csv file upload
                                     context  = { 'loginuserid' : userid,
                                                 'filelogd' : filelogd}
@@ -236,18 +237,18 @@ def homepage(request):
                                     x = len(filelog.objects.all().values_list('file_name'))
                                     filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", instance_type = instance_type)
 
-                                    with open(str(csv_file)) as csvfile1:
-                                        csvfile = csv.reader(csvfile1,delimiter=",")
-                                        for row in csvfile:
-                                            disease_instance.objects.update_or_create(
-                                            disease_id = row[0],
-                                            fever = row[1],
-                                            medicine = row[2],
-                                            filename = str(csv_file)
+                                    # with open(str(csv_file)) as csvfile1:
+                                    #     csvfile = csv.reader(csvfile1,delimiter=",")
+                                    #     for row in csvfile:
+                                    #         disease_instance.objects.update_or_create(
+                                    #         disease_id = row[0],
+                                    #         fever = row[1],
+                                    #         medicine = row[2],
+                                    #         filename = str(csv_file)
                             
-                                        )
+                                    #     )
 
-                                    disease_instance.objects.filter(filename = str(csv_file)).first().delete()
+                                    # disease_instance.objects.filter(filename = str(csv_file)).first().delete()
                                     messages.success(request,f"File Uploaded. {str(csv_file)}") #message after csv file upload
                                     context  = { 'loginuserid' : userid,
                                                 'filelogd' : filelogd}
@@ -276,10 +277,10 @@ def homepage(request):
 
 def delete(request,id,userid,file_name,instance_type):
     filelogd = filelog.objects.filter(userid = userid).values()
-    if instance_type == "Diagnosis":
-        diagnosis_instance.objects.filter(filename = file_name).delete()
-    elif instance_type == "Disease":
-        disease_instance.objects.filter(filename = file_name).delete()
+    # if instance_type == "Diagnosis":
+    #     diagnosis_instance.objects.filter(filename = file_name).delete()
+    # elif instance_type == "Disease":
+    #     disease_instance.objects.filter(filename = file_name).delete()
     try:
         filename = filelog.objects.filter(id = id).values_list('file_name')[0][0]
         filelog.objects.get(id=id).delete()
@@ -361,7 +362,7 @@ def clientlog(request,devid):
 
 def viewactiveinstance(request,devid):
      
-    data = active_instance.objects.all()
+    data = instances.objects.all()
 
     context = {
          "devid" : devid,
@@ -370,8 +371,29 @@ def viewactiveinstance(request,devid):
 
     return render(request,"activeinstance.html",context)
 
-def deleteInstance(request,active_instance_id):
+def deleteInstance(request,instance_name,devid):
      
-    active_instance.objects.filter(active_instance_id = active_instance_id).delete()
+    instances.objects.filter(instance_name = instance_name).delete()
 
-    return render(request,"activeinstance.html")
+    data = instances.objects.all()
+    context = {
+         "devid" : devid,
+         "data" : data
+    }
+    return render(request,"activeinstance.html",context)
+
+
+def addInstance(request):
+     
+    if request.method == "POST":
+        instancename = request.POST.get('instancename')
+        algorithm = request.POST.get('algo')
+        timestamp = str(datetime.now())
+        csvfile = "NA"
+        x = len(instances.objects.all().values_list('instance_name'))
+        instances.objects.update_or_create(id = x + 1 ,instance_name = instancename, algorithm = algorithm, timestamp = timestamp, csvfile = csvfile)
+        
+
+
+
+    return render(request,"addinstance.html")
