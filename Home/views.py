@@ -19,15 +19,14 @@ def login(request):
 
     if request.method == "POST":
         loginuserid = request.POST.get("loginuserid")
-        loginusername = request.POST.get("loginusername")
         loginpassword = request.POST.get("loginpassword")
 
-        if loginuserid == "" and loginusername == "" and loginpassword == "" :
+        if loginuserid == "" and  loginpassword == "" :
             messages.error(request,"Please fill the details")
             return render(request,'login.html')
         
         try:
-            if loginuserid in str(usersinfo.objects.filter(userid = loginuserid).values_list("userid")[0][0]) and loginusername in usersinfo.objects.filter(username = loginusername).values_list("username")[0][0] and loginpassword in usersinfo.objects.filter(password = loginpassword).values_list("password")[0][0]:
+            if loginuserid in str(usersinfo.objects.filter(userid = loginuserid).values_list("userid")[0][0]) and loginpassword in usersinfo.objects.filter(password = loginpassword).values_list("password")[0][0]:
                 filelogd = filelog.objects.filter(userid = loginuserid).values()
                 context = {
                     "loginuserid" : loginuserid,
@@ -84,7 +83,7 @@ def homepage(request):
         userid = request.POST.get('userid')
         filelogd = filelog.objects.filter(userid = userid).values()
         instance_type = request.POST.get('algo')
-           
+        aliasname = request.POST.get('aliasname')
         csv_file = request.FILES['file']  
             
             
@@ -122,7 +121,7 @@ def homepage(request):
                                             csv_writer.writerow(row)  
 
                                     x = len(filelog.objects.all().values_list('file_name'))
-                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", instance_type = instance_type)
+                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", instance_type = instance_type, aliasname = aliasname)
 
                                     # with open(str(csv_file)) as csvfile1:
                                     #     csvfile = csv.reader(csvfile1,delimiter=",")
@@ -156,7 +155,7 @@ def homepage(request):
                                             csv_writer.writerow(row)  
 
                                     x = len(filelog.objects.all().values_list('file_name'))
-                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", instance_type = instance_type)
+                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", instance_type = instance_type, aliasname = aliasname)
 
                                     # with open(str(csv_file)) as csvfile1:
                                     #     csvfile = csv.reader(csvfile1,delimiter=",")
@@ -202,7 +201,7 @@ def homepage(request):
                                             csv_writer.writerow(row)  
 
                                     x = len(filelog.objects.all().values_list('file_name'))
-                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", instance_type = instance_type)
+                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", instance_type = instance_type, aliasname = aliasname)
 
                                     # with open(str(csv_file)) as csvfile1:
                                     #     csvfile = csv.reader(csvfile1,delimiter=",")
@@ -235,7 +234,7 @@ def homepage(request):
                                             csv_writer.writerow(row)  
 
                                     x = len(filelog.objects.all().values_list('file_name'))
-                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", instance_type = instance_type)
+                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", instance_type = instance_type, aliasname = aliasname)
 
                                     # with open(str(csv_file)) as csvfile1:
                                     #     csvfile = csv.reader(csvfile1,delimiter=",")
@@ -277,10 +276,6 @@ def homepage(request):
 
 def delete(request,id,userid,file_name,instance_type):
     filelogd = filelog.objects.filter(userid = userid).values()
-    # if instance_type == "Diagnosis":
-    #     diagnosis_instance.objects.filter(filename = file_name).delete()
-    # elif instance_type == "Disease":
-    #     disease_instance.objects.filter(filename = file_name).delete()
     try:
         filename = filelog.objects.filter(id = id).values_list('file_name')[0][0]
         filelog.objects.get(id=id).delete()

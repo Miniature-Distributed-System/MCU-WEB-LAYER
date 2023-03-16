@@ -2,54 +2,8 @@ body{
     background-color: grey;
 }
 
-.container1{
-    height: auto;
-    margin-bottom: 50px;
-    /* width: 500px; */
-    background: linear-gradient( to right bottom, rgba(93, 93, 93, 0.6), rgba(65, 61, 61, 0.3)); 
-    border-radius: 15px;
-    border-radius: 10px;
-    font-family: arial;
-    font-size: 24px;
-    margin-top: 100px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 85%;
-    padding: 10px;
-}
-
-.uploadcont{
-    background-color: cadetblue;
-    border-radius: 5px;
-    width: 1020px;
-    margin-left: auto;
-    margin-right: auto;
-    height: auto;
-    margin-bottom: 20px;
-
-}
-
-
-
-.uploadcont label:hover{
+form label:hover{
     background-color: bisque;
-}
-
-.uploadcont h1{
-    font-size: xx-large;
-    padding-top: 3px;
-    padding-left: 20px;
-    position:absolute;
-    font-family: serif;
-    font-weight: 700;
-}
-
-.uploadcont p1{
-    font-size: x-small;
-    position: absolute;
-    margin-top: 22px;
-    font-weight: 600;
-    margin-left: 275px;
 }
 
 
@@ -57,7 +11,7 @@ body{
     background-color: bisque;
 }
 
-.uploadcont label{
+form label{
 
     background-color: azure;
     text-align: center;
@@ -88,10 +42,92 @@ body{
 .filerecord{
     background-color: cadetblue;
     border-radius: 5px;
-    width: 1020px;
+    width: 1300px;
     height: 600px;
     margin-left: auto;
     margin-right: auto;
     padding-top: 25px;
+    margin-top: 110px;
 }
 
+.box {
+	text-align: right;
+    margin-right: 100px;
+}
+
+.button {
+	font-size: 15px;
+	padding: 15px 35px;
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+	transition: all 0.3s ease-out;
+	background: #403e3d;
+	border-radius: 10px;
+}
+.overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.8);
+	transition: opacity 500ms;
+	visibility: hidden;
+	opacity: 0;
+}
+.overlay:target {
+	visibility: visible;
+	opacity: 1;
+}
+.wrapper {
+	margin: 70px auto;
+	padding: 20px;
+	background: #e7e7e7;
+	border-radius: 5px;
+	width: 30%;
+	position: relative;
+	transition: all 5s ease-in-out;
+}
+.wrapper h2 {
+	margin-top: 0;
+	color: #333;
+}
+.wrapper .close {
+	position: absolute;
+	top: 20px;
+	right: 30px;
+	transition: all 200ms;
+	font-size: 30px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #333;
+}
+.wrapper .close:hover {
+	color: red;
+}
+.wrapper .content {
+	max-height: 30%;
+	overflow: auto;
+}
+
+.container {
+	border-radius: 5px;
+	background-color: #e7e7e7;
+	padding: 20px 0;
+}
+form label {
+	text-transform: uppercase;
+	font-weight: 500;
+	letter-spacing: 3px;
+}
+input[type=text], select, textarea {
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	margin-top: 6px;
+	margin-bottom: 16px;
+	resize: vertical;
+}

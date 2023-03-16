@@ -49,42 +49,51 @@
     </div>
   </nav>
 
-  <div class="container1">
-    <div class="uploadcont">
-      <h1>Upload Files Here </h1>
-      <p1> (CSV File Only)</p1>
-      <form action="/homepage" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input style="display: none;" name="userid" value="{{loginuserid}}">
-        <select style="margin-left: 780px; width: 130px; border-radius: 5px; background-color: aliceblue;" name="algo">
-          <option selected disabled>Instance</option>
-          <option value = "Diagnosis" >1.Diagnosis</option>
-          <option value = "Disease" >2.Disease</option>
-        </select>
-       
-        <label for="upload">Upload</label><br>
-        <input type="file" name="file" id="upload" style="display: none;">
-        
-        <input style = "float: right; margin-right: 5px;" class="subbtn" type="submit" value="Update" onclick="myFunction()"><br>
-        
-        
 
+    
+    
+    <div class="overlay" id="divOne">
+      <div class="wrapper">
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+            <form action="/homepage" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <h1 style="font-size: large;">File Details</h1>
+              <input style="display: none;" name="userid" value="{{loginuserid}}">
+              <input type="text" placeholder="Name" name="aliasname" id="typeEmailX"
+                class="form-control form-control-lg" />
+              <h2 style="font-size: large;">Upload type CSV </h2><label for="upload">Upload</label><br>
+              <input type="file" name="file" id="upload" style="display: none;">
+              <select style="border-radius: 5px; background-color: aliceblue;" name="algo">
+                <option selected disabled>Instance</option>
+                <option value="Diagnosis">1.Diagnosis</option>
+                <option value="Disease">2.Disease</option>
+              </select><br>
 
-        <p
-          style="color:black; font-weight: 500; font-size: 20px;margin-left: 20px; padding-top: 10px;padding-bottom: 10px;">
-          {% for msg in messages %}
-          {{msg}}
-          {% endfor %}</p>
-      </form>
+              <input style="margin-right: 5px;" class="subbtn" type="submit" value="Submit"><br>
+
+            </form>
+        </div>
+      </div>
     </div>
     <div class="filerecord">
-      <table style="width: 950px; margin-left: auto; margin-right: auto; text-align: center; " class="table table-dark">
+      <p
+      style="color:black; font-weight: 500; font-size: 20px;margin-left: 35px; padding-top: 10px;padding-bottom: 10px;">
+      {% for msg in messages %}
+      {{msg}}
+      {% endfor %}</p>
+      <div class="box">
+        <a class="button" href="#divOne">Add file</a>
+      </div>
+      <table style="width: 1100px; margin-left: auto; margin-right: auto; text-align: center; margin-top: 20px; border-radius: 6px;"
+        class="table table-dark">
         <thead>
           <tr>
             <th scope="col">File ID</th>
             <th scope="col">Filename</th>
             <th scope="col">Instance type</th>
             <th scope="col">Status</th>
+            <th scope="col">aliasname</th>
             <th scope="col">Controls</th>
           </tr>
         </thead>
@@ -95,8 +104,10 @@
             <td>{{ x.file_name }}</td>
             <td>{{ x.instance_type}}</td>
             <td>{{ x.status }}</td>
+            <td>{{ x.aliasname }}</td>
             <td><a href="/delete/{{ x.id }},{{x.userid}},{{x.file_name}},{{x.instance_type}}">Delete</a> |
-                <a href="/result/{{ loginuserid }},{{x.file_name}},{{x.instance_type}}">Result</a></td>
+              <a href="/result/{{ loginuserid }},{{x.file_name}},{{x.instance_type}}">Result</a>
+            </td>
             </td>
           </tr>
           {% endfor %}
@@ -105,8 +116,6 @@
     </div>
 
 
-
-  </div>
 
 
 

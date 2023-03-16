@@ -16,6 +16,7 @@ class filelog(models.Model):
     file_name = models.CharField(max_length=20)
     status = models.CharField(max_length=10)
     instance_type = models.CharField(max_length=20,null=True)
+    aliasname = models.CharField(max_length=20,null=True,unique=True)
 
 class devlog(models.Model):
     devid = models.CharField(max_length=20)
