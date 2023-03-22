@@ -48,6 +48,7 @@ form label{
     margin-right: auto;
     padding-top: 25px;
     margin-top: 110px;
+	margin-bottom: 20px;
 }
 
 .box {
@@ -64,6 +65,7 @@ form label{
 	transition: all 0.3s ease-out;
 	background: #403e3d;
 	border-radius: 10px;
+	font-weight: 600;
 }
 .overlay {
 	position: fixed;
