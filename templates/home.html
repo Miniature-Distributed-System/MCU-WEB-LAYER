@@ -77,11 +77,17 @@
       </div>
     </div>
     <div class="filerecord">
-      <p
-      style="color:black; font-weight: 500; font-size: 20px;margin-left: 35px; padding-top: 10px;padding-bottom: 10px;">
+      <h1 style="text-align: center; color: black; font-size: 30px; font-weight: 700; padding-bottom: 50px;">Process Dashborad</h1>
       {% for msg in messages %}
+      <div class="alert alert-danger" style=" margin-left:100px; width: fit-content; height:30px; text-align: center;" role="alert">
+      <p style=" position: relative; color: black; text-align: center; bottom: 11px;">{{msg}}</p>
+    </div>
+    {% endfor %} 
+      <!-- <p
+      style="color:white; font-weight: 500; font-size: 20px;margin-left: 35px; padding-top: 10px;padding-bottom: 10px;">
+      
       {{msg}}
-      {% endfor %}</p>
+      </p> -->
       <div class="box">
         <a class="button" href="#divOne">Add file</a>
       </div>
@@ -93,7 +99,7 @@
             <th scope="col">Filename</th>
             <th scope="col">Instance type</th>
             <th scope="col">Status</th>
-            <th scope="col">aliasname</th>
+            <th scope="col">Process name</th>
             <th scope="col">Controls</th>
           </tr>
         </thead>
@@ -105,7 +111,7 @@
             <td>{{ x.instance_type}}</td>
             <td>{{ x.status }}</td>
             <td>{{ x.aliasname }}</td>
-            <td><a href="/delete/{{ x.id }},{{x.userid}},{{x.file_name}},{{x.instance_type}}">Delete</a> |
+            <td><a href="/delete/{{ x.id }},{{x.userid}},{{x.file_name}},{{x.instance_type}}" >Delete</a> |
               <a href="/result/{{ loginuserid }},{{x.file_name}},{{x.instance_type}}">Result</a>
             </td>
             </td>
