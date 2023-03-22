@@ -24,19 +24,19 @@
         </div>
         {% endfor %}
 
-        <h1>Devloper Login</h1>
+        <h1>Administrator Login</h1>
         <p> Enter Login Credentials Below</p><br>
         <form action="/devlogin" method="post">
             {% csrf_token %}
 
             <input
-                style="width: 350px; margin-bottom: 30px; margin-left: auto; margin-right: auto; background-color: #5b4f96; color: black;"
-                type="text" placeholder="Developer Login ID" name="devid" id="typeEmailX"
+                style="width: 350px; margin-bottom: 30px; margin-left: auto; margin-right: auto; background-color: rgb(200, 222, 222); color: black;"
+                type="text" placeholder="Admin Login ID" name="devid" id="typeEmailX"
                 class="form-control form-control-lg" />
 
             <input
-                style="width: 350px; margin-bottom: 30px; margin-left: auto; margin-right: auto; background-color: #5b4f96; color: black;"
-                type="password" placeholder="Developer Login Password" name="devpassword" id="typePasswordX"
+                style="width: 350px; margin-bottom: 30px; margin-left: auto; margin-right: auto; background-color: rgb(200, 222, 222); color: black;"
+                type="password" placeholder="Admin Login Password" name="devpassword" id="typePasswordX"
                 class="form-control form-control-lg" />
 
 

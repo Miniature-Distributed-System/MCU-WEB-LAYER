@@ -1,9 +1,9 @@
 body{
-    background-color: #5b4f96;
+    background-color: black;
 }
 
 .signup-container{
-    background: linear-gradient( to right bottom, rgba(91,79,150,0.6), rgba(255,255,255,0.3)); 
+    background: linear-gradient( to right bottom, teal, rgba(249, 248, 248, 0.3)); 
     border-radius: 15px;
     margin-left: auto;
     margin-right: auto;
