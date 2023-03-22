@@ -11,7 +11,7 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/MCU/static/css/addinstance.css">
+    <link rel="stylesheet" href="/static/css/addinstance.css">
 
 
     <title>MCU | ADMIN HOME</title>
@@ -50,16 +50,16 @@
             {% csrf_token %}
             <h1 style="font-size: larger;"><strong>Create Instance</strong></h1><br>
             <div id="survey_options">
-                <input type="text" name="instancename" class="survey_options" size="50" placeholder="Instance Name">
-                <select style="margin-right: 90px;border-radius: 5px; background-color: aliceblue;"
+                <input style = "background-color: rgb(200, 222, 222);" type="text" name="instancename" class="survey_options" size="50" placeholder="Instance Name">
+                <select style="margin-right: 0px; border-radius: 5px; background-color: aliceblue; width: 275px; font-size: larger;"
                     name="algo">
                     <option selected disabled>Algorithm Type</option>
                     <option value="Candidate">Candidate</option>
                     <option value="K-means">K-means</option>
                     <option value="Navie">Navie</option>
                 </select><br><br>
-                <h1 style=" margin-right: 188px;font-size: large;">Columns :</h1>
-                <input type="text" name="survey_options[]" class="survey_options" size="50" placeholder="Column Name">
+                <h1 style=" margin-right: 188px;font-size: large; font-weight: 600;">Columns :</h1>
+                <input style = "background-color: rgb(200, 222, 222);" type="text" name="survey_options[]" class="survey_options" size="50" placeholder="Column Name">
             </div><br>
             <div class="controls">
                 <a href="#" id="add_more_fields"><i class="fa fa-plus"></i><strong>+</strong></a>

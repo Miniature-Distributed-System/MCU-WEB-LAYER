@@ -5,7 +5,7 @@ body{
     height: fit-content;
     margin-bottom: 50px;
     /* width: 500px; */
-    background: linear-gradient( to right bottom, rgba(93, 93, 93, 0.6), rgba(65, 61, 61, 0.3)); 
+    background-color: teal; 
     border-radius: 15px;
     border-radius: 10px;
     font-family: arial;
