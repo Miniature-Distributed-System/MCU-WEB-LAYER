@@ -121,7 +121,7 @@ def homepage(request):
                                             csv_writer.writerow(row)  
 
                                     x = len(filelog.objects.all().values_list('file_name'))
-                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", instance_type = instance_type, aliasname = aliasname)
+                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Pending", instance_type = instance_type, aliasname = aliasname)
 
                                     # with open(str(csv_file)) as csvfile1:
                                     #     csvfile = csv.reader(csvfile1,delimiter=",")
@@ -135,7 +135,7 @@ def homepage(request):
                                     #     )
 
                                     # diagnosis_instance.objects.filter(filename = str(csv_file)).first().delete()
-                                    messages.success(request,f"File Uploaded. {str(csv_file)}") #message after csv file upload
+                                    messages.success(request,f"File Uploaded.") #message after csv file upload
                                     context  = { 'loginuserid' : userid,
                                                 'filelogd' : filelogd}
                                     return render(request,'home.html',context)
@@ -155,7 +155,7 @@ def homepage(request):
                                             csv_writer.writerow(row)  
 
                                     x = len(filelog.objects.all().values_list('file_name'))
-                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", instance_type = instance_type, aliasname = aliasname)
+                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Pending", instance_type = instance_type, aliasname = aliasname)
 
                                     # with open(str(csv_file)) as csvfile1:
                                     #     csvfile = csv.reader(csvfile1,delimiter=",")
@@ -169,7 +169,7 @@ def homepage(request):
                                     #     )
 
                                     # disease_instance.objects.filter(filename = str(csv_file)).first().delete()
-                                    messages.success(request,f"File Uploaded. {str(csv_file)}") #message after csv file upload
+                                    messages.success(request,f"File Uploaded.") #message after csv file upload
                                     context  = { 'loginuserid' : userid,
                                                 'filelogd' : filelogd}
                                     return render(request,'home.html',context)
@@ -201,7 +201,7 @@ def homepage(request):
                                             csv_writer.writerow(row)  
 
                                     x = len(filelog.objects.all().values_list('file_name'))
-                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", instance_type = instance_type, aliasname = aliasname)
+                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Pending", instance_type = instance_type, aliasname = aliasname)
 
                                     # with open(str(csv_file)) as csvfile1:
                                     #     csvfile = csv.reader(csvfile1,delimiter=",")
@@ -215,7 +215,7 @@ def homepage(request):
                                     #     )
 
                                     # diagnosis_instance.objects.filter(filename = str(csv_file)).first().delete()
-                                    messages.success(request,f"File Uploaded. {str(csv_file)}") #message after csv file upload
+                                    messages.success(request,f"File Uploaded.") #message after csv file upload
                                     context  = { 'loginuserid' : userid,
                                                 'filelogd' : filelogd}
                                     return render(request,'home.html',context)
@@ -234,7 +234,7 @@ def homepage(request):
                                             csv_writer.writerow(row)  
 
                                     x = len(filelog.objects.all().values_list('file_name'))
-                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Processing", instance_type = instance_type, aliasname = aliasname)
+                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Pending", instance_type = instance_type, aliasname = aliasname)
 
                                     # with open(str(csv_file)) as csvfile1:
                                     #     csvfile = csv.reader(csvfile1,delimiter=",")
@@ -248,7 +248,7 @@ def homepage(request):
                                     #     )
 
                                     # disease_instance.objects.filter(filename = str(csv_file)).first().delete()
-                                    messages.success(request,f"File Uploaded. {str(csv_file)}") #message after csv file upload
+                                    messages.success(request,f"File Uploaded.") #message after csv file upload
                                     context  = { 'loginuserid' : userid,
                                                 'filelogd' : filelogd}
                                     return render(request,'home.html',context)
@@ -284,7 +284,7 @@ def delete(request,id,userid,file_name,instance_type):
             os.remove(os.path.join("D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS", filename))
         except:
             None      
-        messages.success(request,f"File Deleted Successfully. {file_name}")
+        messages.success(request,f"File Deleted Successfully.")
         context  = { 'loginuserid' : userid,
                                 'filelogd' : filelogd}
         return render(request,'home.html',context)
