@@ -133,3 +133,49 @@ input[type=text], select, textarea {
 	margin-bottom: 16px;
 	resize: vertical;
 }
+
+.instance{
+	background-color: teal;
+    border-radius: 5px;
+    width: 700px;
+    height: 300px;
+    margin-left: 50px;
+    padding-top: 8px;
+    margin-top: 110px;
+	margin-bottom: 20px;
+
+}
+
+.file{
+	background-color: teal;
+    border-radius: 5px;
+    width: 700px;
+    height: 300px;
+    padding-top: 8px;
+	margin-bottom: 20px;
+	margin-right: 20px;
+	float: right;
+	margin-top: 110px;
+	margin-left: 30px  ;
+}
+
+.cards{
+	display: inline-flex;
+} 
+
+.results{
+	background-color: teal;
+    border-radius: 5px;
+    width: 700px;
+    height: 300px;
+    margin-left: 50px;
+    padding-top: 8px;
+    margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+body h1{
+	margin-left: 10px;
+	font-size: 20px;
+	font-weight: 700;
+}
