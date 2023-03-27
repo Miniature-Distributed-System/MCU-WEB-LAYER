@@ -55,6 +55,12 @@
 
         <div class="file">
         <h1>File Details</h1>
+        {% for x in filedetails %}
+        <p1>File name : {{x.file_name}}</p1><br>
+        <p1>File creation time : {{x.upload_time}}</p1><br>
+        <p1>File size : {{x.file_size}} Bytes</p1><br>
+        <p1>File status : {{x.status}}</p1>
+        {% endfor %}
         </div>
     </div>
         <div class="results">

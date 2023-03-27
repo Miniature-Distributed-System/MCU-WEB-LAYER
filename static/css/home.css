@@ -176,6 +176,14 @@ input[type=text], select, textarea {
 
 body h1{
 	margin-left: 10px;
-	font-size: 20px;
+	font-size: 24px;
 	font-weight: 700;
+	margin-bottom: 40px;
+}
+
+.file p1
+{
+	font-size: 18px;
+	margin-left: 15px;
+	font-weight: 498;
 }

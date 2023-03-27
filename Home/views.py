@@ -121,7 +121,7 @@ def homepage(request):
                                             csv_writer.writerow(row)  
 
                                     x = len(filelog.objects.all().values_list('file_name'))
-                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Pending", instance_type = instance_type, aliasname = aliasname)
+                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Pending", instance_type = instance_type, aliasname = aliasname, file_size = os.path.getsize(os.path.join(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)))), upload_time = datetime.now)
 
                                     # with open(str(csv_file)) as csvfile1:
                                     #     csvfile = csv.reader(csvfile1,delimiter=",")
@@ -155,7 +155,7 @@ def homepage(request):
                                             csv_writer.writerow(row)  
 
                                     x = len(filelog.objects.all().values_list('file_name'))
-                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Pending", instance_type = instance_type, aliasname = aliasname)
+                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Pending", instance_type = instance_type, aliasname = aliasname, file_size = os.path.getsize(os.path.join(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)))), upload_time = datetime.now)
 
                                     # with open(str(csv_file)) as csvfile1:
                                     #     csvfile = csv.reader(csvfile1,delimiter=",")
@@ -201,7 +201,7 @@ def homepage(request):
                                             csv_writer.writerow(row)  
 
                                     x = len(filelog.objects.all().values_list('file_name'))
-                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Pending", instance_type = instance_type, aliasname = aliasname)
+                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Pending", instance_type = instance_type, aliasname = aliasname, file_size = os.path.getsize(os.path.join(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)))), upload_time = datetime.now)
 
                                     # with open(str(csv_file)) as csvfile1:
                                     #     csvfile = csv.reader(csvfile1,delimiter=",")
@@ -234,7 +234,7 @@ def homepage(request):
                                             csv_writer.writerow(row)  
 
                                     x = len(filelog.objects.all().values_list('file_name'))
-                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Pending", instance_type = instance_type, aliasname = aliasname)
+                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Pending", instance_type = instance_type, aliasname = aliasname, file_size = os.path.getsize(os.path.join(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)))), upload_time = datetime.now)
 
                                     # with open(str(csv_file)) as csvfile1:
                                     #     csvfile = csv.reader(csvfile1,delimiter=",")
@@ -261,7 +261,7 @@ def homepage(request):
                         
         except Exception as e:
             
-            messages.error(request,f"ERROR : File Not Uploaded.")
+            messages.error(request,f"ERROR : File Not Uploaded. {e}")
             context  = { 'loginuserid' : userid,
                             'filelogd' : filelogd}
             return render(request,'home.html',context)
@@ -392,3 +392,13 @@ def addInstance(request):
 
 
     return render(request,"addinstance.html")
+
+
+def viewmore(request,loginuserid,file_name,instance_type):
+    
+    filedetails = filelog.objects.filter(file_name = file_name)
+    context = {
+        "loginuserid" : loginuserid,
+        "filedetails" : filedetails
+    }
+    return render(request,"viewmore.html",context)

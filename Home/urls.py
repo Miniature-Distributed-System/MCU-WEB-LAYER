@@ -13,5 +13,6 @@ urlpatterns = [
     path('viewactiveinstance/<str:devid>',views.viewactiveinstance,name="viewactiveinstance"),
     path('delete/<int:id>,<int:userid>,<str:file_name>,<str:instance_type>',views.delete,name="delete"),
     path('result/<str:loginuserid>,<str:file_name>,<str:instance_type>',views.result,name="result"),
-    path('deleteInstance/<str:instance_name>,<str:devid>',views.deleteInstance,name="deleteInstance")
+    path('deleteInstance/<str:instance_name>,<str:devid>',views.deleteInstance,name="deleteInstance"),
+    path('viewmore/<str:loginuserid>,<str:file_name>,<str:instance_type>',views.viewmore,name="viewmore")
 ]
