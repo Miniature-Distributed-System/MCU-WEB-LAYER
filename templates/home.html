@@ -109,7 +109,8 @@
             <th scope="row">{{x.id}}</th>
             <td>{{ x.file_name }}</td>
             <td>{{ x.instance_type}}</td>
-            <td>{{ x.status }}</td>
+            <td id = "statustext">{{ x.status }}</td>
+            <input style = "display: none;" type = "text" id = "status" value={{x.status}}>
             <td>{{ x.aliasname }}</td>
             <td><a href="/delete/{{ x.id }},{{x.userid}},{{x.file_name}},{{x.instance_type}}" ><i class="fa-solid fa-trash-can"></i>
             </a>&nbsp; |
@@ -138,6 +139,23 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
   <script src="https://kit.fontawesome.com/2a8db4a381.js" crossorigin="anonymous"></script>
+  <script>
+    let status = document.getElementById('status');
+    var statustext = document.getElementById('statustext');
+    
+    if(status.value === "Pending"){
+      statustext.style.color = 'yellow';
+    }
+    else if(status.value === "Success")
+    {
+      statustext.style.color = 'green';
+    }
+    else if(status.value === "Failure")
+    {
+      statustext.style.value = 'red';
+    }
+  
+  </script>
 </body>
 
 </html>

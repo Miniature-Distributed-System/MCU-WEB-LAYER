@@ -59,12 +59,20 @@
         <p1>File name : {{x.file_name}}</p1><br>
         <p1>File creation time : {{x.upload_time}}</p1><br>
         <p1>File size : {{x.file_size}} Bytes</p1><br>
-        <p1>File status : {{x.status}}</p1>
+        <p1>File status : </p1>
+        <p1 id = "statustext" >{{x.status}}</p1>
+        <input style = "display: none;" type = "text" id = "mytext" value = {{x.status}}><br>
+        <p1>Download file :</p1>
+        <a href="/CSV UPLOADS/14257_diagnosis.csv" download><i style = "color:black; margin-left: 10px;" class="fa-solid fa-download"></i></a>
         {% endfor %}
         </div>
     </div>
         <div class="results">
         <h1>Result Status</h1>
+        <p1 id = "noresulttext">File still processing or in queue. Kindly wait.</p1>
+        <p1 id = "resulttext">Result generated : </p1>
+        <a id = "resultlink" href="#" >Result link</a>
+        
         </div>
     
     <!-- Optional JavaScript -->
@@ -79,6 +87,31 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/2a8db4a381.js" crossorigin="anonymous"></script>
+    <script>
+        let status = document.getElementById('mytext');
+        var statustext = document.getElementById('statustext');
+        var noresult = document.getElementById('noresulttext');
+        var result = document.getElementById('resulttext');
+        var resultlink = document.getElementById('resultlink');
+        
+
+        if (status.value === "Success")
+        {
+            result.style.display = 'true';
+            result.style.display = 'true';
+            noresult.style.display = 'none';
+            // statustext.style.color = '#50B450';
+            
+        }
+
+        else{
+            result.style.display = 'none';
+            resultlink.style.display = 'none';
+            noresult.style.display = 'true';
+            statustext.style.color = 'yellow';
+        }
+    </script>
+    
 </body>
 
 </html>
