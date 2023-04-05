@@ -64,12 +64,13 @@
                 class="form-control form-control-lg" />
               <h2 style="font-size: large;">Upload type CSV </h2><label for="upload">Upload</label><br>
               <input type="file" name="file" id="upload" style="display: none;">
-              <select style="border-radius: 5px; background-color: aliceblue;" name="algo">
+              <select style=" color:black;border-radius: 5px; background-color: aliceblue;" name="algo">
                 <option selected disabled>Instance</option>
-                <option value="Diagnosis">1.Diagnosis</option>
-                <option value="Disease">2.Disease</option>
+                {% for i in instance_list %}
+                <option style="color: black;" value='{{i.instance_name}}'>{{i.instance_name}}</option>
+                {% endfor %} 
               </select><br>
-
+ 
               <input style="margin-right: 5px;" class="subbtn" type="submit" value="Submit"><br>
 
             </form>
@@ -77,7 +78,7 @@
       </div>
     </div>
     <div class="filerecord">
-      <h1 style="text-align: center; color: black; font-size: 30px; font-weight: 700; padding-bottom: 50px;">Process Dashborad</h1>
+      <h1 style="text-align: center; color: black; font-size: 30px; font-weight: 700; padding-bottom: 50px;">Process Dashboard</h1>
       {% for msg in messages %}
       <div class="alert alert-danger" style=" margin-left:100px; width: fit-content; height:30px; text-align: center;" role="alert">
       <p style=" position: relative; color: black; text-align: center; bottom: 11px;">{{msg}}</p>
@@ -109,8 +110,10 @@
             <th scope="row">{{x.id}}</th>
             <td>{{ x.file_name }}</td>
             <td>{{ x.instance_type}}</td>
-            <td id = "statustext">{{ x.status }}</td>
-            <input style = "display: none;" type = "text" id = "status" value={{x.status}}>
+            
+            <td id = "statustext">
+              <span class='{{ x.status }}'> {{ x.status }} </span>
+            </td>
             <td>{{ x.aliasname }}</td>
             <td><a href="/delete/{{ x.id }},{{x.userid}},{{x.file_name}},{{x.instance_type}}" ><i class="fa-solid fa-trash-can"></i>
             </a>&nbsp; |
@@ -139,23 +142,6 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
   <script src="https://kit.fontawesome.com/2a8db4a381.js" crossorigin="anonymous"></script>
-  <script>
-    let status = document.getElementById('status');
-    var statustext = document.getElementById('statustext');
-    
-    if(status.value === "Pending"){
-      statustext.style.color = 'yellow';
-    }
-    else if(status.value === "Success")
-    {
-      statustext.style.color = 'green';
-    }
-    else if(status.value === "Failure")
-    {
-      statustext.style.value = 'red';
-    }
-  
-  </script>
 </body>
 
 </html>

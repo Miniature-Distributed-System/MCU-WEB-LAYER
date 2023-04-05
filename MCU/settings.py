@@ -136,7 +136,12 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR,"static")
 ]
 
+#csv download
+CSV_UPLOAD_URL = 'CSV UPLOADS/'
 
+CSV_UPLOAD_DIRS = [
+    os.path.join(BASE_DIR,"CSV UPLOADS")
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

@@ -193,3 +193,15 @@ body h1{
 	margin-left: 15px;
 	font-weight: 498;
 }
+
+.Pending{
+  color: yellow;
+}
+
+.Success{
+	color: green;
+}
+
+.Failure{
+	color: red;
+}

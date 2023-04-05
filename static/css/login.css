@@ -13,6 +13,7 @@ body{
     height: auto;
     padding-top: 50px;
     padding-bottom: 30px;
+    text-align: center;
 }
 
 .login-container h1{
@@ -32,8 +33,6 @@ body{
 }
 
 .subtn {
-    margin-left: 38%;
-    margin-right: 38%;
     height: 50px;
     width: 120px;
     font-size: x-large;

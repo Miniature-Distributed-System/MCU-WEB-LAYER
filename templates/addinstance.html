@@ -17,7 +17,7 @@
     <title>MCU | ADMIN HOME</title>
 </head>
 
-<body>
+<body style="background-color:  cadetblue;">
 
     <nav style="position: fixed; overflow: hidden; top: 0; width: 100%; background-color: black;"
         class="navbar navbar-dark bg-dark">
@@ -48,23 +48,29 @@
     <div class="container1">
         <form action="/addInstance" method="post">
             {% csrf_token %}
-            <h1 style="font-size: larger;"><strong>Create Instance</strong></h1><br>
+            <h1 style="font-size: larger; color:black"><strong>Create Instance</strong></h1><br>
             <div id="survey_options">
-                <input style = "background-color: rgb(200, 222, 222);" type="text" name="instancename" class="survey_options" size="50" placeholder="Instance Name">
-                <select style="margin-right: 0px; border-radius: 5px; background-color: aliceblue; width: 275px; font-size: larger;"
+                <input style = "color: black;" type="text" name="instancename" class="survey_options" size="50" placeholder="Instance Name">
+                <select style="margin-right: 0px; border-radius: 5px; font-size: 22px; ;border-color: black; background-color: teal; width: 275px; "
                     name="algo">
                     <option selected disabled>Algorithm Type</option>
                     <option value="Candidate">Candidate</option>
                     <option value="K-means">K-means</option>
                     <option value="Navie">Navie</option>
                 </select><br><br>
-                <h1 style=" margin-right: 188px;font-size: large; font-weight: 600;">Columns :</h1>
-                <input style = "background-color: rgb(200, 222, 222);" type="text" name="survey_options[]" class="survey_options" size="50" placeholder="Column Name">
-            </div><br>
+                <h1 style=" margin-right: 100px; font-size: large; font-weight: 600; color: black;">Add columns name:</h1>
+                <input type="text" name="survey_options_1" class="survey_options" size="50" placeholder="Column 1">
+            </div>
+            <h1 style=" margin-right: 85px; font-size: large; font-weight: 600; color: black;">Add columns values  :</h1>
+            <div id = "survey_options1">
+                <input type="text"  name="survey_values_1" class="survey_options1" size = "50" placeholder="Values for column 1">
+            </div> 
+            <br>
             <div class="controls">
                 <a href="#" id="add_more_fields"><i class="fa fa-plus"></i><strong>+</strong></a>
                 <a href="#" id="remove_fields"><i class="fa fa-plus"></i><strong>-</strong></a><br>
             </div>
+            <input id="column_counter" name="column_counter" type="number" value=1 hidden />
             <br><input class="subtn" type="submit" value="Add Instance">
         </form>
     </div>
@@ -83,23 +89,36 @@
         crossorigin="anonymous"></script>
     <script>
         var survey_options = document.getElementById('survey_options');
+        var survey_options1 = document.getElementById('survey_options1');
         var add_more_fields = document.getElementById('add_more_fields');
         var remove_fields = document.getElementById('remove_fields');
 
         add_more_fields.onclick = function () {
             var newField = document.createElement('input');
+            var newField1 = document.createElement('input');
             newField.setAttribute('type', 'text');
-            newField.setAttribute('name', 'survey_options[]');
-            newField.setAttribute('class', 'survey_options');
+            newField1.setAttribute('type','text');
+            console.log($('#column_counter').val());
+            newField.setAttribute('name', 'survey_options_' + (parseInt($('#column_counter').val()) + 1));
+            newField1.setAttribute('name','survey_values_' + (parseInt($('#column_counter').val()) + 1));
+            // newField.setAttribute('class', 'survey_options');
             newField.setAttribute('siz', 50);
-            newField.setAttribute('placeholder', 'Column Name');
+            newField1.setAttribute('siz', 50);
+            newField.setAttribute('placeholder', 'Column ' + (parseInt($('#column_counter').val()) + 1)) ;
+            newField1.setAttribute('placeholder', 'Values for column ' + (parseInt($('#column_counter').val()) + 1))
             survey_options.appendChild(newField);
+            survey_options1.appendChild(newField1);
+            $('#column_counter').val((parseInt($('#column_counter').val()) + 1));
         }
 
         remove_fields.onclick = function () {
             var input_tags = survey_options.getElementsByTagName('input');
-            if (input_tags.length > 2) {
+            var input_tags1 = survey_options1.getElementsByTagName('input');
+            console.log($('#column_counter').val());
+            if (input_tags.length > 1 & input_tags1.length > 1 ) {
                 survey_options.removeChild(input_tags[(input_tags.length) - 1]);
+                survey_options1.removeChild(input_tags1[(input_tags1.length) - 1]);
+                $('#column_counter').val((parseInt($('#column_counter').val()) - 1));
             }
         }
     </script>

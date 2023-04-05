@@ -43,7 +43,7 @@ body{
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@100;300;400;700&display=swap');
 
 body {
-  background-color: #f0f5ff;
+  background-color: cadetblue;
   font-family: 'Jost',sans-serif;
   color: #fff;
 }
@@ -55,7 +55,7 @@ input[type="text"]{
   margin: 10px auto;
   display: block;
   border-radius: 5px;
-  border: 1px solid lightgrey;
+  border: 1px solid ;
   background: none;
   width: 274px;
   color: black;
@@ -87,3 +87,8 @@ h1 {
   font-size: 48px;
   color: #232c3d;
 }
+
+::placeholder{
+  color: black;
+}
+

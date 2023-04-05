@@ -63,7 +63,7 @@
         <p1 id = "statustext" >{{x.status}}</p1>
         <input style = "display: none;" type = "text" id = "mytext" value = {{x.status}}><br>
         <p1>Download file :</p1>
-        <a href="/CSV UPLOADS/14257_diagnosis.csv" download><i style = "color:black; margin-left: 10px;" class="fa-solid fa-download"></i></a>
+        <a href="{{ file_dir }}/{{x.file_name}}" download><i style = "color:black; margin-left: 10px;" class="fa-solid fa-download"></i></a>
         {% endfor %}
         </div>
     </div>
