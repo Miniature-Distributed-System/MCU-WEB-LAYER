@@ -28,6 +28,7 @@ def login(request):
             if loginuserid in str(usersinfo.objects.filter(userid = loginuserid).values_list("userid")[0][0]) and loginpassword in usersinfo.objects.filter(password = loginpassword).values_list("password")[0][0]:
                 filelogd = filelog.objects.filter(userid = loginuserid).values()
                 instance_list = instances.objects.all()
+
                 context = {
                     "loginuserid" : loginuserid,
                     "filelogd"    : filelogd,
@@ -106,174 +107,49 @@ def homepage(request):
                                     'filelogd' : filelogd,
                                     'instance_list' : instance_list}
                         return render(request,'home.html',context)
+            
             except:
                         df =  pd.read_csv(csv_file)
-                        headers = df.axes[1]        #reading the headers of the csv and storing into a list
-                        print(headers)
-                        print(len(headers))
-                        # """ CHECKING OF HEADERS WITH THE ALGORITHM REQUIREMENTS"""
-                        if instance_type == "Diagnosis":
-                            diagonsis_headers = ['diagnosis_id','fever','medicine']
-                            if len(headers) == 3 and diagonsis_headers == list(headers):
-                                
-                                    with csv_file.open('rb') as read_obj, \
-                                        open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)), 'w', newline='') as write_obj:
-                                    
-                                        csv_reader = reader(codecs.iterdecode(read_obj, 'utf-8'))
-                                    
-                                        csv_writer = writer(write_obj)
-                                        
-                                        for row in csv_reader:
-                                            csv_writer.writerow(row)  
-
-                                    x = len(filelog.objects.all().values_list('file_name'))
-                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Pending", instance_type = instance_type, aliasname = aliasname, file_size = os.path.getsize(os.path.join(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)))), upload_time = datetime.now)
-
-                                    # with open(str(csv_file)) as csvfile1:
-                                    #     csvfile = csv.reader(csvfile1,delimiter=",")
-                                    #     for row in csvfile:
-                                    #         diagnosis_instance.objects.update_or_create(
-                                    #         diagnosis_id = row[0],
-                                    #         fever = row[1],
-                                    #         medicine = row[2],
-                                    #         filename = str(csv_file)
-                            
-                                    #     )
-
-                                    # diagnosis_instance.objects.filter(filename = str(csv_file)).first().delete()
-                                    messages.success(request,f"File Uploaded.") #message after csv file upload
-                                    context  = { 'loginuserid' : userid,
-                                                'filelogd' : filelogd,
-                                                'instance_list' : instance_list}
-                                    return render(request,'home.html',context)
-
-
-                        elif instance_type == "Disease":
-                            disease_header = ['disease_id','fever','medicine']
-                            if len(headers) == 3 and disease_header == list(headers):
-                                    with csv_file.open('rb') as read_obj, \
-                                        open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)), 'w', newline='') as write_obj:
-                                    
-                                        csv_reader = reader(codecs.iterdecode(read_obj, 'utf-8'))
-                                    
-                                        csv_writer = writer(write_obj)
-                                        
-                                        for row in csv_reader:
-                                            csv_writer.writerow(row)  
-
-                                    x = len(filelog.objects.all().values_list('file_name'))
-                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Pending", instance_type = instance_type, aliasname = aliasname, file_size = os.path.getsize(os.path.join(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)))), upload_time = datetime.now)
-
-                                    # with open(str(csv_file)) as csvfile1:
-                                    #     csvfile = csv.reader(csvfile1,delimiter=",")
-                                    #     for row in csvfile:
-                                    #         disease_instance.objects.update_or_create(
-                                    #         disease_id = row[0],
-                                    #         fever = row[1],
-                                    #         medicine = row[2],
-                                    #         filename = str(csv_file)
-                            
-                                    #     )
-
-                                    # disease_instance.objects.filter(filename = str(csv_file)).first().delete()
-                                    messages.success(request,f"File Uploaded.") #message after csv file upload
-                                    context  = { 'loginuserid' : userid,
-                                                'filelogd' : filelogd,
-                                                'instance_list' : instance_list}
-                                    return render(request,'home.html',context)
-
-                        else:
-                                messages.error(request,"Can't Process The File. Attribute might be missing.")
-                                context  = { 'loginuserid' : userid,
-                                        'filelogd' : filelogd,
-                                        'instance_list' : instance_list}
-                                return render(request,'home.html',context)
-
-            else:
-                        df =  pd.read_csv(csv_file)
-                        headers = df.axes[1]        #reading the headers of the csv and storing into a list
-                        print(headers)
-                        print(len(headers))
-                        # """ CHECKING OF HEADERS WITH THE ALGORITHM REQUIREMENTS"""
-                        if instance_type == "Diagnosis":
-                            diagonsis_headers = ['diagnosis_id','fever','medicine']
-                            if len(headers) == 3 and diagonsis_headers == list(headers):
-                                
-                                    with csv_file.open('rb') as read_obj, \
-                                        open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)), 'w', newline='') as write_obj:
-                                    
-                                        csv_reader = reader(codecs.iterdecode(read_obj, 'utf-8'))
-                                    
-                                        csv_writer = writer(write_obj)
-                                        
-                                        for row in csv_reader:
-                                            csv_writer.writerow(row)  
-
-                                    x = len(filelog.objects.all().values_list('file_name'))
-                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Pending", instance_type = instance_type, aliasname = aliasname, file_size = os.path.getsize(os.path.join(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)))), upload_time = datetime.now)
-
-                                    # with open(str(csv_file)) as csvfile1:
-                                    #     csvfile = csv.reader(csvfile1,delimiter=",")
-                                    #     for row in csvfile:
-                                    #         diagnosis_instance.objects.update_or_create(
-                                    #         diagnosis_id = row[0],
-                                    #         fever = row[1],
-                                    #         medicine = row[2],
-                                    #         filename = str(csv_file)
-                            
-                                    #     )
-
-                                    # diagnosis_instance.objects.filter(filename = str(csv_file)).first().delete()
-                                    messages.success(request,f"File Uploaded.") #message after csv file upload
-                                    context  = { 'loginuserid' : userid,
-                                                'filelogd' : filelogd,
-                                                'instance_list' : instance_list}
-                                    return render(request,'home.html',context)
-
-                        elif instance_type == "Disease":
-                            disease_header = ['disease_id','fever','medicine']
-                            if len(headers) == 3 and disease_header == list(headers):
-                                    with csv_file.open('rb') as read_obj, \
-                                        open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)), 'w', newline='') as write_obj:
-                                    
-                                        csv_reader = reader(codecs.iterdecode(read_obj, 'utf-8'))
-                                    
-                                        csv_writer = writer(write_obj)
-                                        
-                                        for row in csv_reader:
-                                            csv_writer.writerow(row)  
-
-                                    x = len(filelog.objects.all().values_list('file_name'))
-                                    filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Pending", instance_type = instance_type, aliasname = aliasname, file_size = os.path.getsize(os.path.join(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)))), upload_time = datetime.now)
-
-                                    # with open(str(csv_file)) as csvfile1:
-                                    #     csvfile = csv.reader(csvfile1,delimiter=",")
-                                    #     for row in csvfile:
-                                    #         disease_instance.objects.update_or_create(
-                                    #         disease_id = row[0],
-                                    #         fever = row[1],
-                                    #         medicine = row[2],
-                                    #         filename = str(csv_file)
-                            
-                                    #     )
-
-                                    # disease_instance.objects.filter(filename = str(csv_file)).first().delete()
-                                    messages.success(request,f"File Uploaded.") #message after csv file upload
-                                    context  = { 'loginuserid' : userid,
-                                                'filelogd' : filelogd,
-                                                'instance_list' : instance_list}
-                                    return render(request,'home.html',context)
-
-                        else:
-                                messages.error(request,"Can't Process The File. Attribute might be missing.")
-                                context  = { 'loginuserid' : userid,
-                                        'filelogd' : filelogd,
-                                        'instance_list' : instance_list}
-                                return render(request,'home.html',context)
                         
-        except Exception as e:
+                        with csv_file.open('rb') as read_obj, \
+                                        open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)), 'w', newline='') as write_obj:
+                                    
+                                        csv_reader = reader(codecs.iterdecode(read_obj, 'utf-8'))
+                                    
+                                        csv_writer = writer(write_obj)
+                                        
+                                        for row in csv_reader:
+                                            csv_writer.writerow(row)  
+
+                        x = len(filelog.objects.all().values_list('file_name'))
+                        filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Pending", instance_type = instance_type, aliasname = aliasname, file_size = os.path.getsize(os.path.join(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)))), upload_time = datetime.now)
+                        
+                        # with open(str(csv_file)) as csvfile1:
+                        #     csvfile = csv.reader(csvfile1,delimiter=",")
+                        #     for row in csvfile:
+                        #         diagnosis_instance.objects.update_or_create(
+                        #         diagnosis_id = row[0],
+                        #         fever = row[1],
+                        #         medicine = row[2],
+                        #         filename = str(csv_file)
+                            
+                        #     )
+
+                        # diagnosis_instance.objects.filter(filename = str(csv_file)).first().delete()
+                        
+                        messages.success(request,f"File Uploaded.") #message after csv file upload
+                        context  = { 'loginuserid' : userid,
+                                                'filelogd' : filelogd,
+                                                'instance_list' : instance_list}
+                        return render(request,'home.html',context)
+
+
+                    
+
+           
+        except Exception:
             
-            messages.error(request,f"ERROR : File Not Uploaded. {e}")
+            messages.error(request,f"ERROR : File Not Uploaded.")
             context  = { 'loginuserid' : userid,
                             'filelogd' : filelogd,
                             'instance_list' : instance_list}
@@ -288,7 +164,7 @@ def homepage(request):
 
 def delete(request,id,userid,file_name,instance_type):
     filelogd = filelog.objects.filter(userid = userid).values()
-    instance_list = instances.objects.values_list('instance_name')
+    instance_list = instances.objects.all()
     try:
         filename = filelog.objects.filter(id = id).values_list('file_name')[0][0]
         filelog.objects.get(id=id).delete()
@@ -312,20 +188,21 @@ def delete(request,id,userid,file_name,instance_type):
 
 def result(request,loginuserid,file_name,instance_type):
     
-    if instance_type == "Diagnosis":
-        data  = diagnosis_instance.objects.filter(filename = file_name).all()
-    if instance_type == "Disease":
-        data  = disease_instance.objects.filter(filename = file_name).all()
-    context = {
-        "loginuserid" : loginuserid,
-        "data" : data
-        }
+    # if instance_type == "Diagnosis":
+    #     data  = diagnosis_instance.objects.filter(filename = file_name).all()
+    # if instance_type == "Disease":
+    #     data  = disease_instance.objects.filter(filename = file_name).all()
+    # context = {
+    #     "loginuserid" : loginuserid,
+    #     "data" : data
+    #     }
 
-    if instance_type == "Diagnosis":
-        return render(request,"results.html",context)
+    # if instance_type == "Diagnosis":
+    #     return render(request,"results.html",context)
 
-    if instance_type == "Disease":
-        return render(request,"results1.html",context)    
+    # if instance_type == "Disease":
+    #     return render(request,"results1.html",context)    
+    pass
 
 
 def devlogin(request):
@@ -384,7 +261,10 @@ def viewactiveinstance(request,devid):
 def deleteInstance(request,instance_name,devid):
      
     instances.objects.filter(instance_name = instance_name).delete()
-
+    try:
+        os.remove(os.path.join("D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS", instance_name + '.csv'))
+    except:
+            None
     data = instances.objects.all()
     context = {
          "devid" : devid,
