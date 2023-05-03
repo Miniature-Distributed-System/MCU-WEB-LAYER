@@ -1,5 +1,5 @@
 body{
-    background-color: grey;
+    background-color: black;
 }
 
 form label:hover{
@@ -13,7 +13,7 @@ form label:hover{
 
 form label{
 
-    background-color: azure;
+    background-color: white;
     text-align: center;
     border-radius: 5px;
     height: 30px;
@@ -26,7 +26,7 @@ form label{
 
 }
 .subbtn{
-    background-color: azure;
+    background-color: white;
     text-align: center;
     border-radius: 5px;
     height: 30px;
@@ -40,7 +40,7 @@ form label{
 }
 
 .filerecord{
-    background-color: teal;
+    background: linear-gradient( to right bottom, #5b4f96, rgba(169, 124, 207, 0.3));
     border-radius: 5px;
     width: 1300px;
     height: 600px;
@@ -135,43 +135,45 @@ input[type=text], select, textarea {
 }
 
 .instance{
-	background-color: teal;
+	background: linear-gradient( to right bottom, #5b4f96, rgba(169, 124, 207, 0.3));
     border-radius: 5px;
     width: 700px;
-    height: 300px;
-    margin-left: 50px;
+    height: 330px;
     padding-top: 8px;
-    margin-top: 110px;
-	margin-bottom: 20px;
+	margin-top: 20px;
+	color: white;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
 }
 
 .file{
-	background-color: teal;
+	background: linear-gradient( to right bottom, #5b4f96, rgba(169, 124, 207, 0.3));
     border-radius: 5px;
     width: 700px;
-    height: 300px;
+    height: 460px;
     padding-top: 8px;
-	margin-bottom: 20px;
-	margin-right: 20px;
-	float: right;
-	margin-top: 110px;
-	margin-left: 30px  ;
+	margin-top: 20px;
+	color: white;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	
 }
 
 .cards{
-	display: inline-flex;
+    margin-left: 26%;
+	margin-top: 100px;
 } 
 
 .results{
-	background-color: teal;
+	background: linear-gradient( to right bottom, #5b4f96, rgba(169, 124, 207, 0.3));
     border-radius: 5px;
     width: 700px;
-    height: 300px;
-    margin-left: 50px;
+    height: 220px;
     padding-top: 8px;
-    margin-top: 20px;
-	margin-bottom: 20px;
+	margin-top: 20px;
+    margin-bottom: 30px;
+	color: white;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	
 }
 
 body h1{
@@ -179,21 +181,52 @@ body h1{
 	font-size: 24px;
 	font-weight: 700;
 	margin-bottom: 40px;
+	color: white;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .file p1
 {
 	font-size: 18px;
-	margin-left: 15px;
-	font-weight: 498;
+	margin-left: 40px;
+	color: white;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .results p1{
 	font-size: 18px;
-	margin-left: 15px;
-	font-weight: 498;
+	margin-left: 40px;
+	color: white;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+.instance p1{
+	font-size: 18px;
+	margin-left: 40px;
+	color: white;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.instance p2{
+	margin-left: 40px;
+	font-weight: 498;
+	color: white;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.file p2{
+	margin-left: 40px;
+	font-weight: 498;
+	color: white;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.results p2{
+	margin-left: 40px;
+	font-weight: 498;
+	color: white;
+	font-family: Arial, Helvetica, sans-serif;
+}
 .Pending{
   color: yellow;
 }
@@ -205,3 +238,32 @@ body h1{
 .Failure{
 	color: red;
 }
+
+
+.lds-dual-ring {
+	display: true;
+	width: 80px;
+	height: 80px;
+	margin-top: 30px;
+	margin-left: 300px;
+  }
+  .lds-dual-ring:after {
+	content: " ";
+	display: block;
+	width: 64px;
+	height: 64px;
+	margin: 8px;
+	border-radius: 50%;
+	border: 6px solid #fff;
+	border-color: #fff transparent #fff transparent;
+	animation: lds-dual-ring 1.2s linear infinite;
+  }
+  @keyframes lds-dual-ring {
+	0% {
+	  transform: rotate(0deg);
+	}
+	100% {
+	  transform: rotate(360deg);
+	}
+  }
+  

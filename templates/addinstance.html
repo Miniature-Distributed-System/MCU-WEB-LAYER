@@ -17,7 +17,7 @@
     <title>MCU | ADMIN HOME</title>
 </head>
 
-<body style="background-color:  cadetblue;">
+<body style="background-color:  black">
 
     <nav style="position: fixed; overflow: hidden; top: 0; width: 100%; background-color: black;"
         class="navbar navbar-dark bg-dark">
@@ -41,27 +41,27 @@
             </ul>
         </div>
     </nav><br><br><br>
-    <h1 style="margin-left: 15px;font-size: 32px; font-family: serif; color:  black; font-weight: 550;">Instance
+    <h1 style="margin-left: 15px;font-size: 32px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color:  white; font-weight: 550; float: left;">Instance
         Creation</h1>
     </div>
 
     <div class="container1">
         <form action="/addInstance" method="post">
             {% csrf_token %}
-            <h1 style="font-size: larger; color:black"><strong>Create Instance</strong></h1><br>
+            <h1 style="font-size: larger; color:white"><strong>Create Instance</strong></h1><br>
             <div id="survey_options">
-                <input style = "color: black;" type="text" name="instancename" class="survey_options" size="50" placeholder="Instance Name">
-                <select style="margin-right: 0px; border-radius: 5px; font-size: 22px; ;border-color: black; background-color: teal; width: 275px; "
+                <input style = "color: white; border-color: black;" type="text" name="instancename" class="survey_options" size="50" placeholder="Instance Name">
+                <select style="margin-right: 0px; border-radius: 5px; font-size: 22px; ;border-color: black; background-color: transparent; width: 275px; "
                     name="algo">
                     <option selected disabled>Algorithm Type</option>
                     <option value="Candidate">Candidate</option>
                     <option value="K-means">K-means</option>
                     <option value="Navie">Navie</option>
                 </select><br><br>
-                <h1 style=" margin-right: 100px; font-size: large; font-weight: 600; color: black;">Add columns name:</h1>
+                <h1 style=" margin-right: 100px; font-size: large; font-weight: 600; color: white;">Add columns name:</h1>
                 <input type="text" name="survey_options_1" class="survey_options" size="50" placeholder="Column 1">
             </div>
-            <h1 style=" margin-right: 85px; font-size: large; font-weight: 600; color: black;">Add columns values  :</h1>
+            <h1 style=" margin-right: 85px; font-size: large; font-weight: 600; color: white;">Add columns values  :</h1>
             <div id = "survey_options1">
                 <input type="text"  name="survey_values_1" class="survey_options1" size = "50" placeholder="Values for column 1">
             </div> 

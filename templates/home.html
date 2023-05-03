@@ -58,16 +58,16 @@
         <div class="content">
             <form action="/homepage" method="post" enctype="multipart/form-data">
               {% csrf_token %}
-              <h1 style="font-size: large;">File Details</h1>
+              <h1 style="font-size: large; color: black;">File Details</h1>
               <input style="display: none;" name="userid" value="{{loginuserid}}">
               <input type="text" placeholder="Name" name="aliasname" id="typeEmailX"
                 class="form-control form-control-lg" />
               <h2 style="font-size: large;">Upload type CSV </h2><label for="upload">Upload</label><br>
               <input type="file" name="file" id="upload" style="display: none;">
-              <select style=" color:black;border-radius: 5px; background-color: aliceblue;" name="algo">
+              <select style=" color:black; border-radius: 5px; background-color: white" name="algo">
                 <option selected disabled>Instance</option>
                 {% for i in instance_list %}
-                <option style="color: black;" value='{{i.instance_name}}'>{{i.instance_name}}</option>
+                <option style="color: black; background-color: white;" value='{{i.instance_name}}'>{{i.instance_name}}</option>
                 {% endfor %} 
               </select><br>
  
@@ -78,7 +78,7 @@
       </div>
     </div>
     <div class="filerecord">
-      <h1 style="text-align: center; color: black; font-size: 30px; font-weight: 700; padding-bottom: 50px;">Process Dashboard</h1>
+      <h1 style="text-align: center; color: white; font-size: 30px; font-weight: 700; padding-bottom: 50px;">Process Dashboard</h1>
       {% for msg in messages %}
       <div class="alert alert-danger" style=" margin-left:100px; width: fit-content; height:30px; text-align: center;" role="alert">
       <p style=" position: relative; color: black; text-align: center; bottom: 11px;">{{msg}}</p>
@@ -90,7 +90,7 @@
       {{msg}}
       </p> -->
       <div class="box">
-        <a class="button" href="#divOne">Add file</a>
+        <a class="button" href="#divOne">Create Process</a>
       </div>
       <table style="width: 1100px; margin-left: auto; margin-right: auto; text-align: center; margin-top: 20px; border-radius: 6px;"
         class="table table-dark">
@@ -117,8 +117,7 @@
             <td>{{ x.aliasname }}</td>
             <td><a href="/delete/{{ x.id }},{{x.userid}},{{x.file_name}},{{x.instance_type}}" ><i class="fa-solid fa-trash-can"></i>
             </a>&nbsp; |
-                 &nbsp;<a href="/result/{{ loginuserid }},{{x.file_name}},{{x.instance_type}}"><i class="fa-solid fa-square-poll-vertical" ></i></a>&nbsp; |
-                 &nbsp;<a href="/viewmore/{{ loginuserid }},{{x.file_name}},{{x.instance_type}}">view more</a>
+                 &nbsp;<a href="/viewmore/{{ loginuserid }},{{x.file_name}},{{x.instance_type}}"><i class="fa-solid fa-eye"></i></a>
             </td>
             </td>
           </tr>

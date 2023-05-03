@@ -16,6 +16,7 @@ class filelog(models.Model):
     aliasname = models.CharField(max_length=20,null=True,unique=True)
     upload_time = models.CharField(max_length=30,null=True)
     file_size  = models.CharField(max_length=20,null=True)
+    priority = models.IntegerField(null=True)
 
 class devlog(models.Model):
     devid = models.CharField(max_length=20)

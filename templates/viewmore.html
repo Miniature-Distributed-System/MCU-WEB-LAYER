@@ -50,31 +50,44 @@
     </nav>
     <div class="cards">
         <div class="instance">
-        <h1>Instance Details</h1>
-        </div>
-
-        <div class="file">
-        <h1>File Details</h1>
         {% for x in filedetails %}
-        <p1>File name : {{x.file_name}}</p1><br>
-        <p1>File creation time : {{x.upload_time}}</p1><br>
-        <p1>File size : {{x.file_size}} Bytes</p1><br>
-        <p1>File status : </p1>
-        <p1 id = "statustext" >{{x.status}}</p1>
-        <input style = "display: none;" type = "text" id = "mytext" value = {{x.status}}><br>
-        <p1>Download file :</p1>
-        <a href="{{ file_dir }}/{{x.file_name}}" download><i style = "color:black; margin-left: 10px;" class="fa-solid fa-download"></i></a>
+        <h1>Instance Details</h1>
+        <p1 style="font-weight: 600;">Instance type</p1><br>
+        <p2>{{x.instance_type}}</p2><br><br>
+        <p1 style="font-weight: 600;">Headers</p1><br>
+        {% for i in header %}
+        <p2>{{i}}</p2>
+        {% endfor %}<br><br>
+        <p1 style="font-weight: 600;">Values</p1><br>
+        {% for i in values %}
+        <p2>{{i}}</p2>
         {% endfor %}
         </div>
-    </div>
+        <hr style="background-color: azure; width: 700px; margin-left: auto; margin-right: 1000px;">
+        <div class="file">
+        <h1>File Details</h1>
+        <p1 style="font-weight: 600;">File name</p1><br>
+        <p2>{{x.file_name}}</p2><br><br>
+        <p1 style="font-weight: 600;">File creation time </p1><br>
+        <p2>{{x.upload_time}}</p2><br><br>
+        <p1 style="font-weight: 600;">File size</p1><br>
+        <p2>{{x.file_size}} MB</p2><br><br>
+        <p1 style="font-weight: 600;">File status : </p1><br>
+        <p2 id = "statustext" >{{x.status}}</p2><br>
+        <input style = "display: none;" type = "text" id = "mytext" value = {{x.status}}><br>
+        <p1 style="font-weight: 600;">Download file</p1><br>
+        <a style = "margin-left: 30px;" href="{{ file_dir }}/{{x.file_name}}" download><i style = "color:black; margin-left: 10px;" class="fa-solid fa-download"></i></a>
+        {% endfor %}
+        </div>
+        <hr style="background-color: azure; width: 700px; margin-left: auto; margin-right: 1000px;">
         <div class="results">
         <h1>Result Status</h1>
         <p1 id = "noresulttext">File still processing or in queue. Kindly wait.</p1>
         <p1 id = "resulttext">Result generated : </p1>
         <a id = "resultlink" href="#" >Result link</a>
-        
+        <div class="lds-dual-ring"></div>
         </div>
-    
+    </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -93,6 +106,7 @@
         var noresult = document.getElementById('noresulttext');
         var result = document.getElementById('resulttext');
         var resultlink = document.getElementById('resultlink');
+        var loadinglogo = document.getElementsByClassName('lds-dual-ring');
         
 
         if (status.value === "Success")
@@ -100,7 +114,8 @@
             result.style.display = 'true';
             result.style.display = 'true';
             noresult.style.display = 'none';
-            // statustext.style.color = '#50B450';
+            loadinglogo.style.display = 'none';
+            statustext.style.color = 'green';
             
         }
 
@@ -108,7 +123,9 @@
             result.style.display = 'none';
             resultlink.style.display = 'none';
             noresult.style.display = 'true';
+            loadinglogo.style.display = 'true';
             statustext.style.color = 'yellow';
+
         }
     </script>
     

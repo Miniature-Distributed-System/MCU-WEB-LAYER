@@ -3,7 +3,7 @@ body{
 }
 
 .signup-container{
-    background: linear-gradient( to right bottom, teal, rgba(249, 248, 248, 0.3)); 
+    background: linear-gradient( to right bottom, #5b4f96, rgba(169, 124, 207, 0.3));  
     border-radius: 15px;
     margin-left: auto;
     margin-right: auto;
@@ -17,13 +17,13 @@ body{
 
 .signup-container h1{
     text-align: center;
-    font-family: serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: 700;
     font-size: 50px;
 }
 
 .signup-container p{
-        font-family: sans-serif;
+        font-family: Arial, Helvetica, sans-serif;
         color: aliceblue;
         text-align: center;
         margin-top: 10px;
@@ -32,14 +32,13 @@ body{
 }
 
 .subtn {
-    margin-left: 38%;
-    margin-right: 38%;
     height: 50px;
-    width: 120px;
+    width: 352px;
+    margin-left: 34px;
     font-size: x-large;
-    font-family: serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: 700;
     border-radius: 5px;
-    background-color: azure;
+    background-color: white;
     margin-bottom: 10px;
 }

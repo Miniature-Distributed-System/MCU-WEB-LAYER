@@ -10,7 +10,7 @@ from csv import reader
 from csv import writer
 import codecs
 import os
-import MCU.settings as settings
+import string
 
 def index(request):
     return render(request,"index.html")
@@ -79,14 +79,12 @@ def signup(request):
 def homepage(request):
     
     
-    
-
-    
     if request.method == "POST": 
         userid = request.POST.get('userid')
         filelogd = filelog.objects.filter(userid = userid).values()
         instance_type = request.POST.get('algo')
-        aliasname = request.POST.get('aliasname')
+        aliasname_raw = request.POST.get('aliasname')
+        aliasname = aliasname_raw.replace(" ","")
         csv_file = request.FILES['file']  
         instance_list = instances.objects.all()
        
@@ -99,8 +97,8 @@ def homepage(request):
                               }
                 return render(request,'home.html',context)
 
-        try:    
-            try:
+    
+        try:
                     if str(csv_file) in filelog.objects.filter(file_name = str(csv_file)).values_list('file_name')[0][0]:   #checks if file exist 
                         messages.error(request,"File Already Exist.")
                         context  = { 'loginuserid' : userid,
@@ -108,8 +106,8 @@ def homepage(request):
                                     'instance_list' : instance_list}
                         return render(request,'home.html',context)
             
-            except:
-                        df =  pd.read_csv(csv_file)
+        except:
+                        
                         
                         with csv_file.open('rb') as read_obj, \
                                         open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)), 'w', newline='') as write_obj:
@@ -121,22 +119,11 @@ def homepage(request):
                                         for row in csv_reader:
                                             csv_writer.writerow(row)  
 
+                    
                         x = len(filelog.objects.all().values_list('file_name'))
-                        filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Pending", instance_type = instance_type, aliasname = aliasname, file_size = os.path.getsize(os.path.join(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)))), upload_time = datetime.now)
+                        filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Pending", instance_type = instance_type, aliasname = aliasname, file_size = os.path.getsize(os.path.join(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)))) / (1024 * 1024), upload_time = datetime.now, priority = 1)
                         
-                        # with open(str(csv_file)) as csvfile1:
-                        #     csvfile = csv.reader(csvfile1,delimiter=",")
-                        #     for row in csvfile:
-                        #         diagnosis_instance.objects.update_or_create(
-                        #         diagnosis_id = row[0],
-                        #         fever = row[1],
-                        #         medicine = row[2],
-                        #         filename = str(csv_file)
-                            
-                        #     )
 
-                        # diagnosis_instance.objects.filter(filename = str(csv_file)).first().delete()
-                        
                         messages.success(request,f"File Uploaded.") #message after csv file upload
                         context  = { 'loginuserid' : userid,
                                                 'filelogd' : filelogd,
@@ -146,14 +133,14 @@ def homepage(request):
 
                     
 
-           
-        except Exception:
+        
             
-            messages.error(request,f"ERROR : File Not Uploaded.")
-            context  = { 'loginuserid' : userid,
+        messages.error(request,f"ERROR : File Not Uploaded.")
+        context  = { 'loginuserid' : userid,
                             'filelogd' : filelogd,
                             'instance_list' : instance_list}
-            return render(request,'home.html',context)
+        
+        return render(request,'home.html',context)
 
 
 
@@ -188,20 +175,7 @@ def delete(request,id,userid,file_name,instance_type):
 
 def result(request,loginuserid,file_name,instance_type):
     
-    # if instance_type == "Diagnosis":
-    #     data  = diagnosis_instance.objects.filter(filename = file_name).all()
-    # if instance_type == "Disease":
-    #     data  = disease_instance.objects.filter(filename = file_name).all()
-    # context = {
-    #     "loginuserid" : loginuserid,
-    #     "data" : data
-    #     }
-
-    # if instance_type == "Diagnosis":
-    #     return render(request,"results.html",context)
-
-    # if instance_type == "Disease":
-    #     return render(request,"results1.html",context)    
+      
     pass
 
 
@@ -212,7 +186,7 @@ def devlogin(request):
 
         if devid == "" and devpassword == "" :
             messages.error(request,"Please fill the details")
-            return render(request,'login.html')
+            return render(request,'devlogin.html')
         
         try:
             if devid in str(devlog.objects.filter(devid = devid).values_list("devid")[0][0]) and devpassword in devlog.objects.filter(password = devpassword).values_list("password")[0][0]:
@@ -262,7 +236,7 @@ def deleteInstance(request,instance_name,devid):
      
     instances.objects.filter(instance_name = instance_name).delete()
     try:
-        os.remove(os.path.join("D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS", instance_name + '.csv'))
+        os.remove(os.path.join("D:\Miniature Compute Unit Web Layer\MCU\INSTANCE CSV UPLOADS", instance_name + '.csv'))
     except:
             None
     data = instances.objects.all()
@@ -284,11 +258,31 @@ def addInstance(request):
         columns_values = [request.POST.get('survey_values_' + str(idx)) for idx in  range(1, column_count + 1)]
         print(columns)
         print(columns_values)
+    
+        columnNames=[]
+        columnValuesDict={}
+        columns_list = columns
+        values = columns_values
+        columnNames = columns_list
+        verticalMatrixLength = 0
 
-        with open( os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS' , str(instancename) + '.csv') , 'w') as file:
-            csv_writer = writer(file)                          
-            csv_writer.writerow(columns)
-            csv_writer.writerow(columns_values) 
+        def instanceRowConstructor(depth):
+            row = []
+            for i in columnValuesDict.keys():
+                row.append(columnValuesDict.get(i)[depth])
+            return row	
+
+        for i in range(len(columnNames)):
+                
+                columnValuesDict[columnNames[i]] = values[i].split()
+                if(len(columnValuesDict[columnNames[i]]) > verticalMatrixLength):
+                    verticalMatrixLength = len(columnValuesDict[columnNames[i]])
+
+        with open("D:\Miniature Compute Unit Web Layer\MCU\INSTANCE CSV UPLOADS" + str(instancename) + '.csv' , 'w', newline = '') as f:
+            mywriter = writer(f, dialect='excel')
+            mywriter.writerows([columnNames])
+            for depth in range(verticalMatrixLength):
+                mywriter.writerows([instanceRowConstructor(depth)])	
 
         timestamp = str(datetime.now())
         csvfile = "NA"
@@ -303,9 +297,27 @@ def addInstance(request):
 def viewmore(request,loginuserid,file_name,instance_type):
     
     filedetails = filelog.objects.filter(file_name = file_name)
+    list = []
+    with open( os.path.join('D:\Miniature Compute Unit Web Layer\MCU\INSTANCE CSV UPLOADS' , str(instance_type) + '.csv') , mode ='r') as file:
+        csv_reader = reader(file)
+        for row in csv_reader:
+            list.append(row)
+           
+        
+    print(list)
+    print(instance_type)     
+    print(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\INSTANCE CSV UPLOADS' , str(instance_type) + '.csv'))
+    values_list = []
+    for i in range(1, len(list)):
+        values_list.append(list[i])
+
     context = {
         "loginuserid" : loginuserid,
         "filedetails" : filedetails,
-        "file_dir" : settings.CSV_UPLOAD_URL
+        "file_dir" : 'D:\Miniature Compute Unit Web Layer\MCU\INSTANCE CSV UPLOADS',
+        "header" :  list[0],
+        "values" :  values_list
     }
+
+
     return render(request,"viewmore.html",context)

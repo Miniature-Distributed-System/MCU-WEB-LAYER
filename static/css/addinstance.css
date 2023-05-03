@@ -1,14 +1,14 @@
 body{
-    background-color: cadetblue;
+    background-color: black;
 }
 .container1{
     height: fit-content;
     margin-bottom: 50px;
     /* width: 500px; */
-    background-color: teal; 
+    background: linear-gradient( to right bottom, #5b4f96, rgba(169, 124, 207, 0.3));
     border-radius: 15px;
     border-radius: 10px;
-    font-family: arial;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 24px;
     margin-top: 40px;
     margin-right: auto;
@@ -20,8 +20,8 @@ body{
 
 
 .login-container p{
-        font-family: sans-serif;
-        color: aliceblue;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        color: white;
         text-align: center;
         margin-top: 10px;
         font-size: medium;
@@ -33,7 +33,7 @@ body{
     height: 50px;
     width: fit-content;
     font-size: x-large;
-    font-family: serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-weight: 700;
     border-radius: 5px;
     background-color: azure;
@@ -43,7 +43,7 @@ body{
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@100;300;400;700&display=swap');
 
 body {
-  background-color: cadetblue;
+  background-color: black;
   font-family: 'Jost',sans-serif;
   color: #fff;
 }

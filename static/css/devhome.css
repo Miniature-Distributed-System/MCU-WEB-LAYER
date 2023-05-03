@@ -1,14 +1,14 @@
 body{
-    background-color: cadetblue;
+    background-color: black;
 }
 .container1{
     height: auto;
     margin-bottom: 50px;
     /* width: 500px; */
-    background-color:teal;
+    background: linear-gradient( to right bottom, #5b4f96, rgba(169, 124, 207, 0.3));
     border-radius: 15px;
     border-radius: 10px;
-    font-family: arial;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 24px;
     margin-top: 100px;
     margin-left: 20px;
@@ -18,6 +18,8 @@ body{
 .container1 button{
     border-radius: 5px;
     font-size: 20px;
-    font-family: serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-weight: 550;
+    background-color: transparent;
+    color:white;
 }

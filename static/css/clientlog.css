@@ -1,5 +1,5 @@
 body{
-    background-color: cadetblue;
+    background-color: black;
 }
 
 
@@ -7,10 +7,10 @@ body{
     height: fit-content;
     margin-bottom: 50px;
     width: fit-content;
-    background: linear-gradient( to right bottom, rgba(93, 93, 93, 0.6), rgba(65, 61, 61, 0.3)); 
+    background: linear-gradient( to right bottom, #5b4f96, rgba(169, 124, 207, 0.3));
     border-radius: 15px;
     border-radius: 10px;
-    font-family: arial;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin-top: 100px;
     margin-left: auto;
     margin-right: auto;
