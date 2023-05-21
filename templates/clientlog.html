@@ -17,12 +17,11 @@
   <title>MCU | ADMIN HOME</title>
 </head>
 
-<body>
+<body style="background-color: #553D67">
 
   <nav style="position: fixed; overflow: hidden; top: 0; width: 100%; background-color: black;"
     class="navbar navbar-dark bg-dark">
-    <a style="font-family: serif; font-size: x-large;" class="navbar-brand" href="#">Miniature Compute
-      Unit&nbsp;&nbsp;&nbsp;&nbsp;{{devid}}</a>
+    <a style="font-family: sans-serif; font-size: 30px; color: #f64c72;" class="navbar-brand" href="#"><strong>MCU</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{devid}}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -41,20 +40,20 @@
       </ul>
     </div>
   </nav><br><br><br>
-  <h1 style="margin-left: 15px;font-size: 32px;  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color:  white; font-weight: 550;">Client Log</h1>
+  <h1 style="margin-left: 15px;font-size: 38px;  margin-top: 20px;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color:  white; font-weight: 550;">Client Log</h1>
   </div>
   
-  <div class="container1">
+  <div style = "background: #252482;" class="container1">
     <table style="width: 1100px; margin-left: auto; margin-right: auto; text-align: center; border-radius: 5px; " class="table table-dark">
       <thead>
-        <tr>
+        <tr style = "font-size: 28px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" >
           <th scope="col">User ID</th>
           <th scope="col">Username</th>
         </tr>
       </thead>
       <tbody>
         {% for x in data %}
-        <tr>
+        <tr style="font-size: 21px; font-family: Arial, Helvetica, sans-serif;">
           <th>{{x.userid}}</th>
           <td>{{x.username}}</td>
           </td>

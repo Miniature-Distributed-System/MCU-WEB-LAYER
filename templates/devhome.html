@@ -17,12 +17,11 @@
   <title>MCU | ADMIN HOME</title>
 </head>
 
-<body>
+<body style="background-color: #553D67">
 
   <nav style="position: fixed; overflow: hidden; top: 0; width: 100%; background-color: black;"
     class="navbar navbar-dark bg-dark">
-    <a style="font-family: serif; font-size: x-large;" class="navbar-brand" href="#">Miniature Compute
-      Unit&nbsp;&nbsp;&nbsp;&nbsp;{{devid}}</a>
+    <a style="font-family: sans-serif; font-size: 30px; color: #f64c72;" class="navbar-brand" href="#"><strong>MCU</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{devid}}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -41,12 +40,12 @@
       </ul>
     </div>
   </nav><br><br><br>
-  <h1 style="margin-left: 15px;font-size: 32px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color:  white; font-weight: 550;">Welcome Administrator {{devid}}</h1>
+  <h1 style="margin-left: 15px;font-size: 38px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color:  white; font-weight: 550; margin-top: 10px;">Welcome Administrator {{devid}}</h1>
   </div>
   
-  <div class="container1">
+  <div style = "background-color: #252482; padding-top: 40px;" class="container1">
   <ul><button><a style = "color: white; font-family: Arial, Helvetica, sans-serif;" href = "/clientlog/{{devid}}" >Client Logs</a></button></ul>
-  <ul><button><a style = "color: white; font-family: Arial, Helvetica, sans-serif;" href = "/addInstance" >Add An Instance</a></button></ul>
+  <ul><button><a style = "color: white; font-family: Arial, Helvetica, sans-serif;" href = "/addInstance/{{devid}}" >Add An Instance</a></button></ul>
   <ul><button><a style = "color: white; font-family: Arial, Helvetica, sans-serif;" href = "/viewactiveinstance/{{devid}}" >Active Instances</a></button></ul>
   </div>
 

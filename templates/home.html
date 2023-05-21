@@ -24,12 +24,11 @@
   <title>MCU | HOME</title>
 </head>
 
-<body>
+<body style="background-color: #553D67">
 
   <nav style="position: fixed; overflow: hidden; top: 0; width: 100%; background-color: black;"
     class="navbar navbar-dark bg-dark">
-    <a style="font-family: serif; font-size: x-large;" class="navbar-brand" href="#">Miniature Compute
-      Unit&nbsp;&nbsp;&nbsp;&nbsp;{{loginuserid}}</a>
+      <a style="font-family: sans-serif; font-size: 30px; color: #f64c72;" class="navbar-brand" href="#"><strong>MCU</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{loginuserid}}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -53,17 +52,19 @@
     
     
     <div class="overlay" id="divOne">
-      <div class="wrapper">
-        <a class="close" href="#">&times;</a>
+      <div style = "background-color: #553d67;" class="wrapper">
+        <a style = "color: white;" class="close" href="#">&times;</a>
         <div class="content">
             <form action="/homepage" method="post" enctype="multipart/form-data">
               {% csrf_token %}
-              <h1 style="font-size: large; color: black;">File Details</h1>
+              <h1 style="color: white; font-size: 28px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; margin-left: auto; margin-right: auto;">Provide File Details</h1>
               <input style="display: none;" name="userid" value="{{loginuserid}}">
+              <h2 style="font-size: 22px; color: white; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Enter Name Of The File:</h2>
               <input type="text" placeholder="Name" name="aliasname" id="typeEmailX"
-                class="form-control form-control-lg" />
-              <h2 style="font-size: large;">Upload type CSV </h2><label for="upload">Upload</label><br>
-              <input type="file" name="file" id="upload" style="display: none;">
+                class="form-control form-control-lg" /> <br>
+              <h2 style="font-size: 22px; color: white; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Upload Csv File Only: </h2><label style="background-color: #F64C72; color: white; border-color: #F64C72; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" for="upload">Upload</label><br>
+              <input type="file" name="file" id="upload" style="display: none;"><br>
+              <h2 style="font-size: 22px; color: white; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Select The Instance:</h2>
               <select style=" color:black; border-radius: 5px; background-color: white" name="algo">
                 <option selected disabled>Instance</option>
                 {% for i in instance_list %}
@@ -71,54 +72,46 @@
                 {% endfor %} 
               </select><br>
  
-              <input style="margin-right: 5px;" class="subbtn" type="submit" value="Submit"><br>
+              <input style="margin-right: 5px; border-color: #F64C72; background-color: #F64C72; color: white; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; margin-left: auto; margin-right: auto;" class="subbtn" type="submit" value="Submit"><br>
 
             </form>
         </div>
       </div>
     </div>
-    <div class="filerecord">
-      <h1 style="text-align: center; color: white; font-size: 30px; font-weight: 700; padding-bottom: 50px;">Process Dashboard</h1>
+    <div style = "background: #252482; width: 1670px; height: 620px; margin-top: 80px; padding-top: 20px;" class="filerecord">
+      <h2 style="text-align: center; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: white; font-size: 35px; font-weight: 700; padding-bottom: 50px;">PROCESS DASHBOARD</h2>
       {% for msg in messages %}
-      <div class="alert alert-danger" style=" margin-left:100px; width: fit-content; height:30px; text-align: center;" role="alert">
+      <div class="alert alert-primary" style=" margin-left:15px; width: fit-content; height:30px; text-align: center; position: fixed;" role="alert">
       <p style=" position: relative; color: black; text-align: center; bottom: 11px;">{{msg}}</p>
     </div>
     {% endfor %} 
-      <!-- <p
-      style="color:white; font-weight: 500; font-size: 20px;margin-left: 35px; padding-top: 10px;padding-bottom: 10px;">
-      
-      {{msg}}
-      </p> -->
-      <div class="box">
-        <a class="button" href="#divOne">Create Process</a>
+      <div style = "margin-left: auto; margin-right: 15px;" class="box">
+        <a style = "background-color: #F64C72; border-radius: 2px; margin-left: 300px; font-size: 22px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" class="button" href="#divOne">Create Process</a>
       </div>
-      <table style="width: 1100px; margin-left: auto; margin-right: auto; text-align: center; margin-top: 20px; border-radius: 6px;"
+      <table style=" background-color: #553d67; width: 1640px; margin-left: auto; margin-right: auto; text-align: center; margin-top: 20px; border-radius: 2px;"
         class="table table-dark">
         <thead>
           <tr>
-            <th scope="col">File ID</th>
-            <th scope="col">Filename</th>
-            <th scope="col">Instance type</th>
-            <th scope="col">Status</th>
-            <th scope="col">Process name</th>
-            <th scope="col">Controls</th>
+            <th style = "font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size: 22px;" scope="col">Filename</th>
+            <th style = "font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size: 22px;" scope="col">Instance type</th>
+            <th style = "font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size: 22px;" scope="col">Status</th>
+            <th style = "font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size: 22px;" scope="col">Process name</th>
+            <th style = "font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size: 22px;" scope="col">Controls</th>
           </tr>
         </thead>
         <tbody>
           {% for x in filelogd %}
-          <tr>
-            <th scope="row">{{x.id}}</th>
-            <td>{{ x.file_name }}</td>
-            <td>{{ x.instance_type}}</td>
+          <tr style="font-size: 19px; font-family: Arial, Helvetica, sans-serif;">
+            <td >{{ x.file_name }}</td>
+            <td >{{ x.instance_type}}</td>
             
             <td id = "statustext">
               <span class='{{ x.status }}'> {{ x.status }} </span>
             </td>
-            <td>{{ x.aliasname }}</td>
-            <td><a href="/delete/{{ x.id }},{{x.userid}},{{x.file_name}},{{x.instance_type}}" ><i class="fa-solid fa-trash-can"></i>
+            <td >{{ x.aliasname }}</td>
+            <td ><a href="/delete/{{x.userid}},{{x.file_name}},{{x.instance_type}}" ><i style="color: #F64C72;" class="fa-solid fa-trash-can"></i>
             </a>&nbsp; |
-                 &nbsp;<a href="/viewmore/{{ loginuserid }},{{x.file_name}},{{x.instance_type}}"><i class="fa-solid fa-eye"></i></a>
-            </td>
+                 &nbsp;<a href="/viewmore/{{ loginuserid }},{{x.file_name}},{{x.instance_type}}"><i style="color: #F64C72;" class="fa-solid fa-eye"></i></a>
             </td>
           </tr>
           {% endfor %}

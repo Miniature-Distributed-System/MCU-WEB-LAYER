@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/home.css">
+
+    <!-- js -->
+    <script>
+        function myFunction() {
+            document.getElementById("demo").innerHTML = "File Uploaded";
+        }
+    </script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+     <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var positive = document.getElementById('positive').value;
+        var negative = document.getElementById('negative').value;
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Positive Results',     positive*1],
+          ['Negative Results',      negative*1]
+        ]);
+
+        var options = {
+          title: 'Heart Diesase Prediction Results'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+
+    <title>MCU | HOME</title>
+</head>
+
+<body style="background-color: #553D67">
+    <script>alert("File Downloaded in Download Folder")</script>
+    <input style = "display: none;" type = "text" id = "positive" value = {{p}}>
+    <input style = "display: none;" type = "text" id = "negative" value = {{n}}>
+    <nav style="position: fixed; overflow: hidden; top: 0; width: 100%; background-color: black;"
+        class="navbar navbar-dark bg-dark">
+        <a style="font-family: sans-serif; font-size: 30px; color: #f64c72;" class="navbar-brand" href="#"><strong>MCU</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{loginuserid}}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div style="color: white;" class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Log Out</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="cards">
+        <div style = "height: 350px;" class="instance">
+        {% for x in filedetails %}
+        <h1>Instance Details</h1>
+        <p1 style="font-weight: 600;">Instance type</p1><br>
+        <p2>&nbsp;{{x.instance_type}}</p2><br><br>
+        <p1 style="font-weight: 600;">Headers</p1><br>
+        {% for i in header %}
+        &nbsp;<p2>{{i}}</p2>
+        {% endfor %}<br><br>
+        <p1 style="font-weight: 600;">Values</p1><br>
+        {% for i in values %}
+        &nbsp;<p2>{{i}}</p2>
+        {% endfor %}
+        </div>
+        <!-- <hr style="background-color: black; width: 1500px; margin-left: auto; margin-right: auto;"> -->
+        <div style = "height: 380px;" class="file">
+        <h1>File Details</h1>
+        <p1 style="font-weight: 600;">File name</p1><br>
+        <p2>&nbsp;{{x.file_name}}</p2><br><br>
+        <p1 style="font-weight: 600;">File creation time </p1><br>
+        <p2>&nbsp;{{x.timestamp}}</p2><br><br>
+        <p1 style="font-weight: 600;">File size</p1><br>
+        <p2>&nbsp;{{x.file_size}} MB</p2><br><br>
+        <p1 style="font-weight: 600;">File status</p1><br>
+        <p2 id = "statustext" >&nbsp;{{x.status}}</p2><br>
+        <input style = "display: none;" type = "text" id = "mytext" value = {{x.status}}><br>
+        <!-- <p1 style="font-weight: 600;">Download file</p1><br>
+        <a style = "margin-left: 30px;" href="{{ file_dir }}/{{x.file_name}}" download><i style = "color:black; margin-left: 10px;" class="fa-solid fa-download"></i></a> -->
+        {% endfor %}
+        </div>
+        <!-- <hr style="background-color: azure; width: 700px; margin-left: auto; margin-right: 1000px;"> -->
+        <div style = "height: 480px;" class="results">
+        <h1>Result Status</h1>
+        <p1 id = "noresulttext">File still processing or in queue. Kindly wait.</p1>
+        <p1 id = "resulttext">Result generated : </p1><br><br>
+        <p1 id = "resultlink" >&nbsp;General Hypothesis :</p1><p2>{{general_hypo}}</p2><br>
+        <p1 id = "resultlink" >&nbsp;Specific Hypothesis :</p1><p2>{{specific_hypo}}</p2><br><br>
+        &nbsp;<div  id="piechart" style="width: 400px; height: 220px; margin-top: 10px; margin-bottom: 30px; margin-left: 250px; border-radius: 50px;"></div>
+        <div id = "loadinglogo" class="lds-dual-ring"></div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/2a8db4a381.js" crossorigin="anonymous"></script>
+    <script>
+        let status = document.getElementById('mytext');
+        var statustext = document.getElementById('statustext');
+        var noresult = document.getElementById('noresulttext');
+        var result = document.getElementById('resulttext');
+        var resultlink = document.getElementById('resultlink');
+        var loadinglogo = document.getElementById('loadinglogo');
+        var piechart = document.getElementsByClassName('piechart')
+        
+
+        if (status.value === "Success")
+        {
+            result.style.display = 'true';
+            result.style.display = 'true';
+            noresult.style.display = 'none';
+            loadinglogo.style.display = 'none';
+            statustext.style.color = 'green';
+            piechart.style.display = 'true';
+        }
+
+        else{
+            result.style.display = 'none';
+            resultlink.style.display = 'none';
+            noresult.style.display = 'true';
+            loadinglogo.style.display = 'true';
+            statustext.style.color = 'yellow';
+            piechart.style.display = 'none';
+
+        }
+    </script>
+    
+</body>
+
+</html>

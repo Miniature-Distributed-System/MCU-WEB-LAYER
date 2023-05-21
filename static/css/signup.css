@@ -1,18 +1,19 @@
 body{
-    background-color: black;
+    background-color: #553D67;
 }
 
 .signup-container{
-    background: linear-gradient( to right bottom, #5b4f96, rgba(169, 124, 207, 0.3));  
+    background: #242582; 
     border-radius: 15px;
     margin-left: auto;
     margin-right: auto;
     width: 420px;
-    margin-top: 50px;
+    margin-top: 200px;
     margin-bottom: 50px;
     height: auto;
     padding-top: 50px;
     padding-bottom: 30px;
+    text-align: center;
 }
 
 .signup-container h1{
@@ -20,25 +21,27 @@ body{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: 700;
     font-size: 50px;
+    color: white;
 }
 
 .signup-container p{
-        font-family: Arial, Helvetica, sans-serif;
-        color: aliceblue;
-        text-align: center;
-        margin-top: 10px;
-        font-size: medium;
-        font-weight: 300;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    text-align: center;
+    margin-top: 10px;
+    font-size: medium;
+    font-weight: 300;
 }
 
 .subtn {
     height: 50px;
-    width: 352px;
-    margin-left: 34px;
+    width: 353px;
     font-size: x-large;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: 700;
     border-radius: 5px;
-    background-color: white;
+    border-color: #f64c72;
+    background-color: #242582;
     margin-bottom: 10px;
+    color: #f64c72;
 }

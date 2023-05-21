@@ -20,16 +20,14 @@
         }
     </script>
 
-
     <title>MCU | HOME</title>
 </head>
 
-<body>
+<body style="background-color: #553D67">
 
     <nav style="position: fixed; overflow: hidden; top: 0; width: 100%; background-color: black;"
         class="navbar navbar-dark bg-dark">
-        <a style="font-family: serif; font-size: x-large;" class="navbar-brand" href="#">Miniature Compute
-            Unit&nbsp;&nbsp;&nbsp;&nbsp;{{loginuserid}}</a>
+        <a style="font-family: sans-serif; font-size: 30px; color: #f64c72;" class="navbar-brand" href="#"><strong>MCU</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{loginuserid}}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
             aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -49,43 +47,46 @@
         </div>
     </nav>
     <div class="cards">
-        <div class="instance">
+        <div style = "height: 350px;" class="instance">
         {% for x in filedetails %}
         <h1>Instance Details</h1>
         <p1 style="font-weight: 600;">Instance type</p1><br>
-        <p2>{{x.instance_type}}</p2><br><br>
+        <p2>&nbsp;{{x.instance_type}}</p2><br><br>
         <p1 style="font-weight: 600;">Headers</p1><br>
         {% for i in header %}
-        <p2>{{i}}</p2>
+        &nbsp;<p2>{{i}}</p2>
         {% endfor %}<br><br>
         <p1 style="font-weight: 600;">Values</p1><br>
         {% for i in values %}
-        <p2>{{i}}</p2>
+        &nbsp;<p2>{{i}}</p2>
         {% endfor %}
         </div>
-        <hr style="background-color: azure; width: 700px; margin-left: auto; margin-right: 1000px;">
-        <div class="file">
+        <!-- <hr style="background-color: black; width: 1500px; margin-left: auto; margin-right: auto;"> -->
+        <div style = "height: 450px;" class="file">
         <h1>File Details</h1>
         <p1 style="font-weight: 600;">File name</p1><br>
-        <p2>{{x.file_name}}</p2><br><br>
+        <p2>&nbsp;{{x.file_name}}</p2><br><br>
         <p1 style="font-weight: 600;">File creation time </p1><br>
-        <p2>{{x.upload_time}}</p2><br><br>
+        <p2>&nbsp;{{x.timestamp}}</p2><br><br>
         <p1 style="font-weight: 600;">File size</p1><br>
-        <p2>{{x.file_size}} MB</p2><br><br>
-        <p1 style="font-weight: 600;">File status : </p1><br>
-        <p2 id = "statustext" >{{x.status}}</p2><br>
+        <p2>&nbsp;{{x.file_size}} MB</p2><br><br>
+        <p1 style="font-weight: 600;">File status</p1><br>
+        <p2 id = "statustext" >&nbsp;{{x.status}}</p2><br>
         <input style = "display: none;" type = "text" id = "mytext" value = {{x.status}}><br>
         <p1 style="font-weight: 600;">Download file</p1><br>
-        <a style = "margin-left: 30px;" href="{{ file_dir }}/{{x.file_name}}" download><i style = "color:black; margin-left: 10px;" class="fa-solid fa-download"></i></a>
+        &nbsp;<a style = "margin-left: 30px;" href="/home/vishnu/Project_full/temp/inter_result/{{x.aliasname}}.csv" download><i style = "color:white; margin-left: 10px;" class="fa-solid fa-download"></i></a>
         {% endfor %}
         </div>
-        <hr style="background-color: azure; width: 700px; margin-left: auto; margin-right: 1000px;">
+        <!-- <hr style="background-color: azure; width: 700px; margin-left: auto; margin-right: 1000px;"> -->
         <div class="results">
+        {% for x in filedetails %}
         <h1>Result Status</h1>
         <p1 id = "noresulttext">File still processing or in queue. Kindly wait.</p1>
-        <p1 id = "resulttext">Result generated : </p1>
-        <a id = "resultlink" href="#" >Result link</a>
-        <div class="lds-dual-ring"></div>
+        <p1 id = "resulttext">Result generated : </p1><br><br>
+        <p1 id = "resultlink" >Hypothesis :</p1><p2 id = "resultlink1">{{final_result}}</p2><br><br>
+        <p1 id = "resultbutton"><a style = "color: white; background-color: #f64c72; border-radius: 2px; padding: 5px;" href="/resultspart/{{loginuserid}},{{x.file_name}},{{x.instance_type}}">Download Results</a></p1>
+        <div id = "loadinglogo" class="lds-dual-ring"></div>
+        {% endfor %}
         </div>
     </div>
     <!-- Optional JavaScript -->
@@ -106,7 +107,9 @@
         var noresult = document.getElementById('noresulttext');
         var result = document.getElementById('resulttext');
         var resultlink = document.getElementById('resultlink');
-        var loadinglogo = document.getElementsByClassName('lds-dual-ring');
+        var loadinglogo = document.getElementById('loadinglogo');
+        var resultbutton = document.getElementById('resultbutton');
+        var resultlink1 = document.getElementById('resultlink1');
         
 
         if (status.value === "Success")
@@ -116,7 +119,8 @@
             noresult.style.display = 'none';
             loadinglogo.style.display = 'none';
             statustext.style.color = 'green';
-            
+            resultbutton.style.display = 'true';
+            resultlink1.style.display = 'true';
         }
 
         else{
@@ -125,6 +129,8 @@
             noresult.style.display = 'true';
             loadinglogo.style.display = 'true';
             statustext.style.color = 'yellow';
+            resultbutton.style.display = 'none';
+            resultlink1.style.display = 'none';
 
         }
     </script>

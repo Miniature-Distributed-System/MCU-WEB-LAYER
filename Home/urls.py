@@ -8,11 +8,12 @@ urlpatterns = [
     path('homepage',views.homepage,name = "homepage"),
     path('devlogin',views.devlogin,name = "devlogin"),
     path('devhome',views.devhome,name = "devhome"),
-    path('addInstance',views.addInstance,name = "addInstance"),
+    path('addInstance/<str:devid>',views.addInstance,name = "addInstance"),
     path('clientlog/<str:devid>',views.clientlog,name = "clientlog"),
     path('viewactiveinstance/<str:devid>',views.viewactiveinstance,name="viewactiveinstance"),
-    path('delete/<int:id>,<int:userid>,<str:file_name>,<str:instance_type>',views.delete,name="delete"),
-    path('result/<str:loginuserid>,<str:file_name>,<str:instance_type>',views.result,name="result"),
+    path('delete/<int:userid>,<str:file_name>,<str:instance_type>',views.delete,name="delete"),
     path('deleteInstance/<str:instance_name>,<str:devid>',views.deleteInstance,name="deleteInstance"),
-    path('viewmore/<str:loginuserid>,<str:file_name>,<str:instance_type>',views.viewmore,name="viewmore")
+    path('viewmore/<str:loginuserid>,<str:file_name>,<str:instance_type>',views.viewmore,name="viewmore"),
+    path('resultspart/<str:loginuserid>,<str:file_name>,<str:instance_type>',views.resultspart,name="resultspart")
+
 ]

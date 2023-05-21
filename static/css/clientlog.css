@@ -1,13 +1,11 @@
-body{
-    background-color: black;
-}
+
 
 
 .container1{
     height: fit-content;
     margin-bottom: 50px;
     width: fit-content;
-    background: linear-gradient( to right bottom, #5b4f96, rgba(169, 124, 207, 0.3));
+    background-color: #252482;
     border-radius: 15px;
     border-radius: 10px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;

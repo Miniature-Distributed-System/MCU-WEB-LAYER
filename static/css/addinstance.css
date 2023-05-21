@@ -1,11 +1,8 @@
-body{
-    background-color: black;
-}
+
 .container1{
     height: fit-content;
     margin-bottom: 50px;
     /* width: 500px; */
-    background: linear-gradient( to right bottom, #5b4f96, rgba(169, 124, 207, 0.3));
     border-radius: 15px;
     border-radius: 10px;
     font-family: Arial, Helvetica, sans-serif;
@@ -30,13 +27,14 @@ body{
 
 .subtn {
     text-align: center;
+    color: white;
     height: 50px;
-    width: fit-content;
+    width: 280px;
     font-size: x-large;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 700;
     border-radius: 5px;
-    background-color: azure;
+    background-color: #f64c72;
     margin-bottom: 10px;
 }
 

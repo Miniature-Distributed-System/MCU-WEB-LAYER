@@ -1,7 +1,7 @@
-from django.shortcuts import render,redirect
-from django.http import HttpResponseRedirect
+from django.shortcuts import render
+# from django.http import HttpResponseRedirect
 from django.contrib import messages
-from django.urls import reverse
+# from django.urls import reverse
 import pandas as pd
 from Home.models import usersinfo, filelog,devlog,instances
 from datetime import datetime  
@@ -10,7 +10,7 @@ from csv import reader
 from csv import writer
 import codecs
 import os
-import string
+
 
 def index(request):
     return render(request,"index.html")
@@ -110,7 +110,7 @@ def homepage(request):
                         
                         
                         with csv_file.open('rb') as read_obj, \
-                                        open(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)), 'w', newline='') as write_obj:
+                                        open(os.path.join('/home/vishnu/Project_full/temp/user_data/', str(csv_file)), 'w', newline='') as write_obj:
                                     
                                         csv_reader = reader(codecs.iterdecode(read_obj, 'utf-8'))
                                     
@@ -120,8 +120,8 @@ def homepage(request):
                                             csv_writer.writerow(row)  
 
                     
-                        x = len(filelog.objects.all().values_list('file_name'))
-                        filelog.objects.update_or_create(id = x+1, userid = userid, file_name = csv_file, status = "Pending", instance_type = instance_type, aliasname = aliasname, file_size = os.path.getsize(os.path.join(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS', str(csv_file)))) / (1024 * 1024), upload_time = datetime.now, priority = 1)
+                        # x = len(filelog.objects.all().values_list('file_name'))
+                        filelog.objects.update_or_create(userid = userid, file_name = csv_file, status = "Pending", instance_type = instance_type, aliasname = aliasname, file_size = os.path.getsize(os.path.join(os.path.join('/home/vishnu/Project_full/temp/user_data/', str(csv_file)))) / (1024 * 1024), timestamp = datetime.now, priority = 1, final_result = "Not Updated")
                         
 
                         messages.success(request,f"File Uploaded.") #message after csv file upload
@@ -149,15 +149,15 @@ def homepage(request):
 
 
 
-def delete(request,id,userid,file_name,instance_type):
+def delete(request,userid,file_name,instance_type):
     filelogd = filelog.objects.filter(userid = userid).values()
     instance_list = instances.objects.all()
     try:
-        filename = filelog.objects.filter(id = id).values_list('file_name')[0][0]
-        filelog.objects.get(id=id).delete()
-        os.remove(os.path.join("D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS", filename))
+        filename = filelog.objects.filter(file_name = file_name).values_list('file_name')[0][0]
+        filelog.objects.get(file_name = file_name).delete()
+        os.remove(os.path.join("/home/vishnu/Project_full/temp/user_data/", filename))
         try:
-            os.remove(os.path.join("D:\Miniature Compute Unit Web Layer\MCU\CSV UPLOADS", filename))
+            os.remove(os.path.join("/home/vishnu/Project_full/temp/user_data/", filename))
         except:
             None      
         messages.success(request,f"File Deleted Successfully.")
@@ -173,10 +173,6 @@ def delete(request,id,userid,file_name,instance_type):
                               'instance_list' : instance_list}
         return render(request,'home.html',context)
 
-def result(request,loginuserid,file_name,instance_type):
-    
-      
-    pass
 
 
 def devlogin(request):
@@ -236,7 +232,7 @@ def deleteInstance(request,instance_name,devid):
      
     instances.objects.filter(instance_name = instance_name).delete()
     try:
-        os.remove(os.path.join("D:\Miniature Compute Unit Web Layer\MCU\INSTANCE CSV UPLOADS", instance_name + '.csv'))
+        os.remove(os.path.join("/home/vishnu/Project_full/temp/instance/", instance_name + '.csv'))
     except:
             None
     data = instances.objects.all()
@@ -247,58 +243,68 @@ def deleteInstance(request,instance_name,devid):
     return render(request,"activeinstance.html",context)
 
 
-def addInstance(request):
+def addInstance(request,devid):
      
-    if request.method == "POST":
-        instancename = request.POST.get('instancename')
-        algorithm = request.POST.get('algo')
+    try:  
+        if request.method == "POST":
+            instancename = request.POST.get('instancename')
+            algorithm = request.POST.get('algo')
 
-        column_count = int(request.POST.get('column_counter'))
-        columns = [request.POST.get('survey_options_' + str(idx)) for idx in  range(1, column_count + 1)]
-        columns_values = [request.POST.get('survey_values_' + str(idx)) for idx in  range(1, column_count + 1)]
-        print(columns)
-        print(columns_values)
-    
-        columnNames=[]
-        columnValuesDict={}
-        columns_list = columns
-        values = columns_values
-        columnNames = columns_list
-        verticalMatrixLength = 0
-
-        def instanceRowConstructor(depth):
-            row = []
-            for i in columnValuesDict.keys():
-                row.append(columnValuesDict.get(i)[depth])
-            return row	
-
-        for i in range(len(columnNames)):
-                
-                columnValuesDict[columnNames[i]] = values[i].split()
-                if(len(columnValuesDict[columnNames[i]]) > verticalMatrixLength):
-                    verticalMatrixLength = len(columnValuesDict[columnNames[i]])
-
-        with open("D:\Miniature Compute Unit Web Layer\MCU\INSTANCE CSV UPLOADS" + str(instancename) + '.csv' , 'w', newline = '') as f:
-            mywriter = writer(f, dialect='excel')
-            mywriter.writerows([columnNames])
-            for depth in range(verticalMatrixLength):
-                mywriter.writerows([instanceRowConstructor(depth)])	
-
-        timestamp = str(datetime.now())
-        csvfile = "NA"
-        x = len(instances.objects.all().values_list('instance_name'))
-        instances.objects.update_or_create(id = x + 1 ,instance_name = instancename, algorithm = algorithm, timestamp = timestamp, csvfile = csvfile)
+            column_count = int(request.POST.get('column_counter'))
+            columns = [request.POST.get('survey_options_' + str(idx)) for idx in  range(1, column_count + 1)]
+            columns_values = [request.POST.get('survey_values_' + str(idx)) for idx in  range(1, column_count + 1)]
+            print(columns)
+            print(columns_values)
         
+            columnNames=[]
+            columnValuesDict={}
+            columns_list = columns
+            values = columns_values
+            columnNames = columns_list
+            verticalMatrixLength = 0
 
+            def instanceRowConstructor(depth):
+                row = []
+                for i in columnValuesDict.keys():
+                    row.append(columnValuesDict.get(i)[depth])
+                return row	
 
-    return render(request,"addinstance.html")
+            for i in range(len(columnNames)):
+                    
+                    columnValuesDict[columnNames[i]] = values[i].split() if values[i] is not None else []
+                    if(len(columnValuesDict[columnNames[i]]) > verticalMatrixLength):
+                        verticalMatrixLength = len(columnValuesDict[columnNames[i]])
+
+            with open("/home/vishnu/Project_full/temp/instance/" + str(instancename) + '.csv' , 'w', newline = '') as f:
+                mywriter = writer(f, dialect='excel')
+                mywriter.writerows([columnNames])
+                for depth in range(verticalMatrixLength):
+                    mywriter.writerows([instanceRowConstructor(depth)])	
+
+            timestamp = str(datetime.now())
+            csvfile = str(instancename) + '.csv'
+            print(type(instancename))
+            # x = len(instances.objects.all().values_list('instance_name'))
+            instances.objects.update_or_create(instance_name = str(instancename), algorithm = 1, timestamp = timestamp, csvfile = csvfile)
+            
+            return render(request,"addinstance.html")
+        
+    except Exception as e:
+        print("Error " + str(e))
+        messages.error(request,"Error")
+        return render(request,"addinstance.html")
+
+    context = { "devid" : devid}
+    return render(request,"addinstance.html",context)
 
 
 def viewmore(request,loginuserid,file_name,instance_type):
     
     filedetails = filelog.objects.filter(file_name = file_name)
+    final_result = filelog.objects.filter(file_name = file_name).values_list("final_result")[0][0]
+    status = filelog.objects.filter(file_name = file_name).values_list("status")[0][0]
     list = []
-    with open( os.path.join('D:\Miniature Compute Unit Web Layer\MCU\INSTANCE CSV UPLOADS' , str(instance_type) + '.csv') , mode ='r') as file:
+    with open( os.path.join('/home/vishnu/Project_full/temp/instance/' , str(instance_type) + '.csv') , mode ='r') as file:
         csv_reader = reader(file)
         for row in csv_reader:
             list.append(row)
@@ -306,18 +312,125 @@ def viewmore(request,loginuserid,file_name,instance_type):
         
     print(list)
     print(instance_type)     
-    print(os.path.join('D:\Miniature Compute Unit Web Layer\MCU\INSTANCE CSV UPLOADS' , str(instance_type) + '.csv'))
+    print(os.path.join('/home/vishnu/Project_full/temp/instance/' , str(instance_type) + '.csv'))
+
+
     values_list = []
-    for i in range(1, len(list)):
-        values_list.append(list[i])
+    j = 0
+    while(j!=len(list[1])):
+        for i in range(1,len(list)):
+            values_list.append(list[i][j])
+        j = j + 1
+        values_list.append(" | ")        
+
+    print(values_list.pop(len(values_list)-1))  
 
     context = {
         "loginuserid" : loginuserid,
         "filedetails" : filedetails,
         "file_dir" : 'D:\Miniature Compute Unit Web Layer\MCU\INSTANCE CSV UPLOADS',
         "header" :  list[0],
-        "values" :  values_list
+        "values" :  values_list,
+        "final_result" : final_result
+    }
+
+    return render(request,"viewmore.html",context)
+
+def resultspart(request,loginuserid,file_name,instance_type):
+     
+    filedetails = filelog.objects.filter(file_name = file_name)
+    final_result = filelog.objects.filter(file_name = file_name).values_list("final_result")[0][0]
+    list = []
+    with open( os.path.join('/home/vishnu/Project_full/temp/instance/' , str(instance_type) + '.csv') , mode ='r') as file:
+        csv_reader = reader(file)
+        for row in csv_reader:
+            list.append(row)
+           
+        
+    print(list)
+    print(instance_type)     
+    print(os.path.join('/home/vishnu/Project_full/temp/instance/' , str(instance_type) + '.csv'))
+
+    # with open(os.path.join('/home/vishnu/Project_full/temp/user_data/' , str(file_name) + '.csv') , mode ='r') as file:
+    def parse_file(input_file,result_file,target_column_name,final_result_specific_list):
+
+        p = 0 
+        total = 0 
+        with open(input_file, 'r') as file:
+                                    
+            with open(result_file, 'w', newline = '') as f:
+                                            
+                hypothesis = final_result_specific_list
+                                            
+                csvreader = reader(file)
+                header = next(csvreader)
+                mywriter = writer(f, dialect='excel')
+                header.append(target_column_name)
+                mywriter.writerows([header])
+                #print(type(header))
+                val={}
+                for row in csvreader:
+                    flag=1
+                    result=1
+                    total = total + 1        
+                    for i in range(len(hypothesis)):
+                        # print(row[i]+"-"+hypothesis[i]+" ",'')
+                        if(hypothesis[i]!="?"):
+                            if(row[i]!=hypothesis[i]):
+                                flag=0
+                                break
+                                                        
+                    if(flag==0):
+                        result=0
+                                                
+                    if(result==1):
+                        row.append("Positive")
+                        p = p + 1
+                    else:
+                        row.append("Negative")
+                                                
+                                            
+                    mywriter.writerows([row])
+
+        return p,total
+
+
+    input_file = '/home/vishnu/Project_full/temp/user_data/' + str(file_name)
+    output_file = '/home/vishnu/Downloads/' + str(file_name) + '.csv'
+    target_column_name = "Result"
+    print(final_result)
+    final_result_s = final_result.split(":")
+    print(final_result_s)
+    final_result_specific_list = final_result_s[1].split(",")
+    print(final_result_specific_list)
+    p,total = parse_file(input_file,output_file,target_column_name,final_result_specific_list)
+    print(p)
+    print(total-p)
+    values_list = []
+    j = 0
+    while(j!=len(list[1])):
+        for i in range(1,len(list)):
+            values_list.append(list[i][j])
+        j = j + 1
+        values_list.append(" | ")        
+
+    print(values_list.pop(len(values_list)-1)) 
+    general_hypo = final_result_s[0]
+    specific_hypo = final_result_s[1]
+    context = {
+        "loginuserid" : loginuserid,
+        "filedetails" : filedetails,
+        "file_dir" : 'D:\Miniature Compute Unit Web Layer\MCU\INSTANCE CSV UPLOADS',
+        "header" :  list[0],
+        "values" :  values_list,
+        "final_result" : final_result,
+        "general_hypo" : general_hypo,
+        "specific_hypo" : specific_hypo,
+        "p" : p,
+        "n" : total - p
     }
 
 
-    return render(request,"viewmore.html",context)
+
+
+    return render(request,"viewmorepie.html",context)
